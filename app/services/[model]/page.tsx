@@ -69,7 +69,7 @@ export default function ModelPage() {
                     <h3 className="mb-2 text-lg">{service.name}</h3>
                     <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold">0 ₽</span>
+                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
@@ -90,7 +90,7 @@ export default function ModelPage() {
                     <h3 className="mb-2 text-lg">{service.name}</h3>
                     <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold">0 ₽</span>
+                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
@@ -111,7 +111,7 @@ export default function ModelPage() {
                     <h3 className="mb-2 text-lg">{service.name}</h3>
                     <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold">0 ₽</span>
+                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
