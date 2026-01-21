@@ -29,6 +29,11 @@ export default function Reviews() {
     }
 
     async function fetchReviews() {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase
         .from('reviews')
         .select('*')
