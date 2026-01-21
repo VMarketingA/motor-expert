@@ -8,9 +8,69 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
 export const metadata: Metadata = {
-  title: 'Ремонт BMW Москва — Автосервис Мотор Эксперт',
-  description: 'Ремонт бмв москва, автосервис бмв москва, ремонт двигателя бмв москва',
-  keywords: ['ремонт бмв москва', 'автосервис бмв москва', 'ремонт двигателя бмв москва', 'замена масла бмв', 'замена цепи грм бмв', 'диагностика бмв', 'ремонт подвески бмв', 'ремонт турбины бмв', 'сервис бмв', 'техобслуживание бмв'],
+  metadataBase: new URL('https://motorexpert.ru'),
+  title: 'Ремонт BMW Москва — Автосервис Мотор Эксперт | Диагностика, ТО, ремонт двигателя',
+  description: 'Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 12 месяцев ☎ +7-495-114-55-52',
+  keywords: [
+    'ремонт бмв москва',
+    'автосервис бмв москва',
+    'ремонт двигателя бмв москва',
+    'замена масла бмв москва',
+    'замена цепи грм бмв',
+    'диагностика бмв москва',
+    'ремонт подвески бмв',
+    'ремонт турбины бмв',
+    'сервис бмв москва',
+    'техобслуживание бмв',
+    'ремонт bmw москва',
+    'автосервис bmw',
+    'ремонт мини москва',
+    'ремонт mini cooper москва',
+    'замена масла bmw',
+    'диагностика bmw',
+    'ремонт n55',
+    'ремонт n47',
+    'ремонт b58',
+    'замена цепи грм n47',
+    'замена цепи грм n55'
+  ],
+  authors: [{ name: 'Мотор Эксперт' }],
+  creator: 'Мотор Эксперт',
+  publisher: 'Мотор Эксперт',
+  formatDetection: {
+    telephone: true,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    url: 'https://motorexpert.ru',
+    siteName: 'Мотор Эксперт — Автосервис BMW Москва',
+    title: 'Ремонт BMW Москва — Автосервис Мотор Эксперт',
+    description: 'Профессиональный ремонт BMW в Москве. Замена масла от 1000₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 12 месяцев',
+    images: [
+      {
+        url: 'https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Автосервис BMW Мотор Эксперт',
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'google-site-verification-code',
+    yandex: 'yandex-verification-code',
+  },
 };
 
 export default function RootLayout({
@@ -20,6 +80,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="canonical" href="https://motorexpert.ru" />
+        <meta property="og:locale" content="ru_RU" />
+        <meta name="geo.region" content="RU-MOW" />
+        <meta name="geo.placename" content="Москва" />
+        <meta name="geo.position" content="55.703353;37.641109" />
+        <meta name="ICBM" content="55.703353, 37.641109" />
+      </head>
       <body className={inter.className}>
         <I18nProvider>
           <Navigation />

@@ -3,9 +3,60 @@
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
 import { Phone, MapPin, Clock, Shield, Wrench, DollarSign } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+
+interface Service {
+  id: string;
+  name_ru: string;
+  description_ru: string;
+  price_from: number;
+  category: string;
+}
 
 export default function Home() {
   const { t } = useI18n();
+  const [popularServices, setPopularServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    document.title = 'Ремонт BMW Москва — Автосервис Мотор Эксперт | Диагностика, ТО, ремонт двигателя';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 12 месяцев ☎ +7-495-114-55-52');
+    }
+
+    loadServices();
+  }, []);
+
+  async function loadServices() {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .eq('is_active', true)
+        .in('name_ru', [
+          'Замена масла BMW',
+          'Замена цепи ГРМ',
+          'Ремонт двигателя',
+          'Компьютерная диагностика',
+          'Ремонт турбин',
+          'Замена тормозных колодок',
+          'Ремонт подвески'
+        ])
+        .order('sort_order');
+
+      if (error) {
+        console.error('Error loading services:', error);
+      } else if (data) {
+        setPopularServices(data);
+      }
+    } catch (error) {
+      console.error('Error loading services:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const problems = [
     { title: t('problem_oil_title'), desc: t('problem_oil_desc') },
@@ -72,48 +123,26 @@ export default function Home() {
       <section className="bg-gray-50 py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-center mb-12 text-3xl">Популярные услуги ремонта BMW</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Замена масла BMW</h3>
-              <p className="text-sm mb-4">Замена масла и масляного фильтра с использованием оригинальных материалов</p>
-              <span className="text-[#003366] text-sm font-semibold">от 2500 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Замена цепи ГРМ BMW</h3>
-              <p className="text-sm mb-4">Замена цепи газораспределительного механизма на двигателях N20, N47, N55, B58</p>
-              <span className="text-[#003366] text-sm font-semibold">от 35000 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Ремонт двигателя BMW</h3>
-              <p className="text-sm mb-4">Капитальный ремонт моторов N55, N20, N47, B58 с гарантией</p>
-              <span className="text-[#003366] text-sm font-semibold">от 80000 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Диагностика BMW</h3>
-              <p className="text-sm mb-4">Компьютерная диагностика всех систем автомобиля на профессиональном оборудовании</p>
-              <span className="text-[#003366] text-sm font-semibold">от 1500 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Ремонт турбин BMW</h3>
-              <p className="text-sm mb-4">Диагностика и ремонт турбокомпрессоров с восстановлением мощности</p>
-              <span className="text-[#003366] text-sm font-semibold">от 45000 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Ремонт подвески BMW</h3>
-              <p className="text-sm mb-4">Замена амортизаторов, сайлентблоков, шаровых опор, 3D сход-развал</p>
-              <span className="text-[#003366] text-sm font-semibold">от 8000 ₽ →</span>
-            </Link>
-            <Link href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Замена тормозных колодок</h3>
-              <p className="text-sm mb-4">Замена передних и задних тормозных колодок и дисков</p>
-              <span className="text-[#003366] text-sm font-semibold">от 4500 ₽ →</span>
-            </Link>
-            <Link href="/reviews" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-              <h3 className="mb-3 text-lg font-semibold">Отзывы клиентов</h3>
-              <p className="text-sm mb-4">Более 500 довольных клиентов. Средняя оценка 5.0</p>
-              <span className="text-[#003366] text-sm font-semibold">Читать отзывы →</span>
-            </Link>
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="text-xl">Загрузка услуг...</div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {popularServices.map((service) => (
+                <Link key={service.id} href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
+                  <h3 className="mb-3 text-lg font-semibold">{service.name_ru}</h3>
+                  <p className="text-sm mb-4">{service.description_ru}</p>
+                  <span className="text-[#003366] text-sm font-semibold">от {service.price_from.toLocaleString('ru-RU')} ₽ →</span>
+                </Link>
+              ))}
+              <Link href="/reviews" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
+                <h3 className="mb-3 text-lg font-semibold">Отзывы клиентов</h3>
+                <p className="text-sm mb-4">Более 500 довольных клиентов. Средняя оценка 5.0</p>
+                <span className="text-[#003366] text-sm font-semibold">Читать отзывы →</span>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 
@@ -227,48 +256,16 @@ export default function Home() {
               '@type': 'City',
               name: 'Москва',
             },
-            makesOffer: [
-              {
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: 'Замена масла BMW Москва',
-                  description: 'Замена моторного масла и масляного фильтра BMW с использованием оригинальных материалов',
-                },
+            makesOffer: popularServices.map(service => ({
+              '@type': 'Offer',
+              price: service.price_from,
+              priceCurrency: 'RUB',
+              itemOffered: {
+                '@type': 'Service',
+                name: service.name_ru,
+                description: service.description_ru,
               },
-              {
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: 'Ремонт двигателя BMW Москва',
-                  description: 'Капитальный и частичный ремонт двигателей BMW N20, N47, N55, B58 с гарантией',
-                },
-              },
-              {
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: 'Замена цепи ГРМ BMW Москва',
-                  description: 'Замена цепи газораспределительного механизма на двигателях BMW',
-                },
-              },
-              {
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: 'Диагностика BMW Москва',
-                  description: 'Компьютерная диагностика всех систем BMW на профессиональном оборудовании',
-                },
-              },
-              {
-                '@type': 'Offer',
-                itemOffered: {
-                  '@type': 'Service',
-                  name: 'Ремонт подвески BMW Москва',
-                  description: 'Диагностика и ремонт подвески BMW, замена амортизаторов, сайлентблоков, 3D сход-развал',
-                },
-              },
-            ],
+            })),
           }),
         }}
       />
