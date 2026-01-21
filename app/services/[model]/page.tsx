@@ -3,15 +3,83 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useI18n } from '@/lib/i18n';
-import { getModelById } from '@/lib/modelData';
-import { maintenanceServices, engineServices, suspensionServices } from '@/lib/servicesData';
 import { ArrowLeft } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+
+interface Model {
+  id: string;
+  model_id: string;
+  name: string;
+  brand: string;
+  image: string;
+  description: string;
+}
+
+interface Service {
+  id: string;
+  category: string;
+  name_ru: string;
+  description_ru: string;
+  price_from: number;
+}
 
 export default function ModelPage() {
   const params = useParams();
   const { t } = useI18n();
   const modelId = params.model as string;
-  const modelInfo = getModelById(modelId);
+
+  const [modelInfo, setModelInfo] = useState<Model | null>(null);
+  const [maintenanceServices, setMaintenanceServices] = useState<Service[]>([]);
+  const [engineServices, setEngineServices] = useState<Service[]>([]);
+  const [suspensionServices, setSuspensionServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, [modelId]);
+
+  async function loadData() {
+    try {
+      const [modelResponse, servicesResponse] = await Promise.all([
+        supabase
+          .from('models')
+          .select('*')
+          .eq('model_id', modelId)
+          .eq('is_active', true)
+          .maybeSingle(),
+        supabase
+          .from('services')
+          .select('*')
+          .eq('is_active', true)
+          .order('sort_order')
+      ]);
+
+      if (modelResponse.data) {
+        setModelInfo(modelResponse.data);
+      }
+
+      if (servicesResponse.data) {
+        setMaintenanceServices(servicesResponse.data.filter((s: Service) => s.category === 'maintenance'));
+        setEngineServices(servicesResponse.data.filter((s: Service) => s.category === 'engine'));
+        setSuspensionServices(servicesResponse.data.filter((s: Service) => s.category === 'suspension'));
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="pt-16 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-2xl mb-4">Загрузка...</div>
+        </div>
+      </div>
+    );
+  }
 
   if (!modelInfo) {
     return (
@@ -64,12 +132,12 @@ export default function ModelPage() {
             <div>
               <h2 className="mb-8 pb-4 border-b-2 border-black">{t('services_maintenance')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {maintenanceServices.map((service, index) => (
-                  <div key={index} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg">{service.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
+                {maintenanceServices.map((service) => (
+                  <div key={service.id} className="border border-black p-6 flex flex-col">
+                    <h3 className="mb-2 text-lg">{service.name_ru}</h3>
+                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
+                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
@@ -85,12 +153,12 @@ export default function ModelPage() {
             <div>
               <h2 className="mb-8 pb-4 border-b-2 border-black">{t('services_engine')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {engineServices.map((service, index) => (
-                  <div key={index} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg">{service.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
+                {engineServices.map((service) => (
+                  <div key={service.id} className="border border-black p-6 flex flex-col">
+                    <h3 className="mb-2 text-lg">{service.name_ru}</h3>
+                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
+                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
@@ -106,12 +174,12 @@ export default function ModelPage() {
             <div>
               <h2 className="mb-8 pb-4 border-b-2 border-black">{t('services_suspension')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {suspensionServices.map((service, index) => (
-                  <div key={index} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg">{service.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description}</p>
+                {suspensionServices.map((service) => (
+                  <div key={service.id} className="border border-black p-6 flex flex-col">
+                    <h3 className="mb-2 text-lg">{service.name_ru}</h3>
+                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price ? service.price.toLocaleString('ru-RU') : 0} ₽</span>
+                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
                       <Link
                         href={`/booking?model=${modelId}`}
                         className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"

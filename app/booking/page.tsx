@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { getAllModels } from '@/lib/modelData';
+import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -22,17 +22,49 @@ const bookingSchema = z.object({
   problem: z.string().min(10, 'Опишите проблему подробнее (минимум 10 символов)'),
   mileage: z.number().min(0).max(500),
   phone: z.string().regex(phoneRegex, 'Введите корректный номер телефона'),
+  name: z.string().min(2, 'Введите ваше имя'),
 });
 
 type BookingFormValues = z.infer<typeof bookingSchema>;
+
+interface Model {
+  id: string;
+  model_id: string;
+  name: string;
+  brand: string;
+}
 
 export default function BookingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedModel = searchParams.get('model') || '';
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [allModels, setAllModels] = useState<Model[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const allModels = getAllModels();
+  useEffect(() => {
+    loadModels();
+  }, []);
+
+  async function loadModels() {
+    try {
+      const { data, error } = await supabase
+        .from('models')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order');
+
+      if (error) {
+        console.error('Error loading models:', error);
+      } else if (data) {
+        setAllModels(data);
+      }
+    } catch (error) {
+      console.error('Error loading models:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingSchema),
@@ -41,6 +73,7 @@ export default function BookingPage() {
       problem: '',
       mileage: 50,
       phone: '',
+      name: '',
     },
   });
 
@@ -67,21 +100,44 @@ export default function BookingPage() {
   const onSubmit = async (data: BookingFormValues) => {
     setIsSubmitting(true);
 
-    const normalizedPhone = normalizePhone(data.phone);
-    const modelInfo = allModels.find(m => m.id === data.model);
+    try {
+      const normalizedPhone = normalizePhone(data.phone);
+      const modelInfo = allModels.find(m => m.model_id === data.model);
 
-    console.log({
-      ...data,
-      phone: normalizedPhone,
-      modelName: modelInfo?.name,
-    });
+      const { error } = await supabase
+        .from('bookings')
+        .insert({
+          customer_name: data.name,
+          customer_phone: normalizedPhone,
+          model_id: data.model,
+          message: `${data.problem}\n\nПробег: ${data.mileage} тыс. км`,
+          status: 'new',
+        });
 
-    setTimeout(() => {
-      alert(`Спасибо за заявку! Мы свяжемся с вами по номеру ${normalizedPhone}`);
+      if (error) {
+        console.error('Error creating booking:', error);
+        alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.');
+      } else {
+        alert(`Спасибо за заявку! Мы свяжемся с вами по номеру ${normalizedPhone}`);
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.');
+    } finally {
       setIsSubmitting(false);
-      router.push('/');
-    }, 1000);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="pt-16 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-2xl mb-4">Загрузка...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-16 min-h-screen">
@@ -97,6 +153,26 @@ export default function BookingPage() {
           <div className="border-2 border-black p-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-lg font-semibold">
+                        Ваше имя
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Иван"
+                          className="h-12 text-base"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <FormField
                   control={form.control}
                   name="model"
@@ -116,7 +192,7 @@ export default function BookingPage() {
                           {allModels
                             .filter(m => m.brand === 'BMW')
                             .map(model => (
-                              <SelectItem key={model.id} value={model.id}>
+                              <SelectItem key={model.id} value={model.model_id}>
                                 {model.name}
                               </SelectItem>
                             ))}
@@ -126,7 +202,7 @@ export default function BookingPage() {
                           {allModels
                             .filter(m => m.brand === 'MINI')
                             .map(model => (
-                              <SelectItem key={model.id} value={model.id}>
+                              <SelectItem key={model.id} value={model.model_id}>
                                 {model.name}
                               </SelectItem>
                             ))}
