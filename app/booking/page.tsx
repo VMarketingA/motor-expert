@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -34,7 +34,7 @@ interface Model {
   brand: string;
 }
 
-export default function BookingPage() {
+function BookingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedModel = searchParams.get('model') || '';
@@ -43,6 +43,22 @@ export default function BookingPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Запись на ремонт BMW Москва — Автосервис Мотор Эксперт | Онлайн запись';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Онлайн запись на ремонт и диагностику BMW в автосервисе Мотор Эксперт Москва. Быстрая запись, удобное время, профессиональное обслуживание. Гарантия 24 месяца ☎ +7-495-114-55-52');
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://motorexpert.ru/booking');
+    } else {
+      const newCanonical = document.createElement('link');
+      newCanonical.setAttribute('rel', 'canonical');
+      newCanonical.setAttribute('href', 'https://motorexpert.ru/booking');
+      document.head.appendChild(newCanonical);
+    }
+
     loadModels();
   }, []);
 
@@ -328,5 +344,13 @@ export default function BookingPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function BookingPageWrapper() {
+  return (
+    <Suspense fallback={<div className="pt-16 min-h-screen flex items-center justify-center"><div className="text-xl">Загрузка...</div></div>}>
+      <BookingPage />
+    </Suspense>
   );
 }

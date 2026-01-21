@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useI18n } from '@/lib/i18n';
 
 const galleryPhotos = [
@@ -52,6 +53,24 @@ const galleryPhotos = [
 
 export default function Gallery() {
   const { t } = useI18n();
+
+  useEffect(() => {
+    document.title = 'Галерея работ — Ремонт BMW Москва | Автосервис Мотор Эксперт';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Фото наших работ по ремонту и обслуживанию BMW в Москве. Диагностика, замена цепи ГРМ, ремонт двигателя, ремонт турбины, ремонт подвески. Автосервис Мотор Эксперт ☎ +7-495-114-55-52');
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://motorexpert.ru/gallery');
+    } else {
+      const newCanonical = document.createElement('link');
+      newCanonical.setAttribute('rel', 'canonical');
+      newCanonical.setAttribute('href', 'https://motorexpert.ru/gallery');
+      document.head.appendChild(newCanonical);
+    }
+  }, []);
 
   return (
     <div className="pt-16">

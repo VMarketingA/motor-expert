@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/i18n';
 
 const bmwModels = [
@@ -79,6 +79,24 @@ export default function Calculator() {
   const [model, setModel] = useState('');
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [expandedCategory, setExpandedCategory] = useState<string | null>('maintenance');
+
+  useEffect(() => {
+    document.title = 'Калькулятор стоимости ремонта BMW Москва — Мотор Эксперт';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Рассчитайте стоимость ремонта BMW онлайн. Калькулятор цен на ТО, замену масла, ремонт двигателя, замену цепи ГРМ, ремонт подвески. Автосервис Мотор Эксперт Москва ☎ +7-495-114-55-52');
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://motorexpert.ru/calculator');
+    } else {
+      const newCanonical = document.createElement('link');
+      newCanonical.setAttribute('rel', 'canonical');
+      newCanonical.setAttribute('href', 'https://motorexpert.ru/calculator');
+      document.head.appendChild(newCanonical);
+    }
+  }, []);
 
   const allServices = [
     ...maintenanceServices,

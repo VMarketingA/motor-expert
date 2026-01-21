@@ -39,6 +39,27 @@ export default function ModelPage() {
     loadData();
   }, [modelId]);
 
+  useEffect(() => {
+    if (modelInfo) {
+      document.title = `Ремонт ${modelInfo.name} Москва — Автосервис Мотор Эксперт | ТО, диагностика, ремонт`;
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `Профессиональный ремонт ${modelInfo.name} в Москве. Диагностика, ТО, ремонт двигателя, замена цепи ГРМ, ремонт подвески. Гарантия 24 месяца ☎ +7-495-114-55-52`);
+      }
+
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', `https://motorexpert.ru/services/${modelId}`);
+      } else {
+        const newCanonical = document.createElement('link');
+        newCanonical.setAttribute('rel', 'canonical');
+        newCanonical.setAttribute('href', `https://motorexpert.ru/services/${modelId}`);
+        document.head.appendChild(newCanonical);
+      }
+    }
+  }, [modelInfo, modelId]);
+
   async function loadData() {
     if (!isSupabaseConfigured) {
       console.error('Supabase is not configured');

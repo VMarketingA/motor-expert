@@ -32,10 +32,20 @@ export default function Services() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Услуги ремонта BMW Москва — цены на обслуживание';
+    document.title = 'Услуги ремонта BMW Москва — Автосервис Мотор Эксперт | Цены на ТО и обслуживание';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Ремонт бмв москва, автосервис бмв москва, ремонт двигателя бмв москва. Замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 24 месяца');
+      metaDescription.setAttribute('content', 'Услуги автосервиса BMW в Москве: ТО, диагностика, замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽, ремонт подвески, шиномонтаж. Гарантия 24 месяца ☎ +7-495-114-55-52');
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://motorexpert.ru/services');
+    } else {
+      const newCanonical = document.createElement('link');
+      newCanonical.setAttribute('rel', 'canonical');
+      newCanonical.setAttribute('href', 'https://motorexpert.ru/services');
+      document.head.appendChild(newCanonical);
     }
 
     loadData();

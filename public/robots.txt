@@ -1,0 +1,22 @@
+# Robots.txt for Мотор Эксперт - Автосервис BMW Москва
+# https://motorexpert.ru
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://motorexpert.ru/sitemap.xml
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl-delay for all bots
+Crawl-delay: 1

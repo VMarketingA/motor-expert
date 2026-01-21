@@ -225,18 +225,21 @@ export default function Home() {
         dangerouslySetInnerHTML={{
           __html: createSafeJsonLd({
             '@context': 'https://schema.org',
-            '@type': 'AutoRepair',
-            name: 'Мотор Эксперт — Автосервис BMW Москва',
-            description: 'Профессиональный ремонт и обслуживание BMW в Москве. Компьютерная диагностика, замена масла, ремонт двигателя N55, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.',
-            image: 'https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg',
+            '@type': 'LocalBusiness',
             '@id': 'https://motorexpert.ru',
+            name: 'Мотор Эксперт',
+            alternateName: 'Автосервис BMW Мотор Эксперт',
+            description: 'Профессиональный ремонт и обслуживание BMW и MINI в Москве. Компьютерная диагностика, замена масла, ремонт двигателя, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.',
+            image: '/image.png',
+            logo: '/image.png',
             url: 'https://motorexpert.ru',
-            telephone: '+74951145552',
-            priceRange: '₽₽',
+            telephone: '+7-495-114-55-52',
+            priceRange: '₽₽₽',
             address: {
               '@type': 'PostalAddress',
               streetAddress: 'Автозаводская ул., 23, корп. 7',
               addressLocality: 'Москва',
+              addressRegion: 'Москва',
               postalCode: '115280',
               addressCountry: 'RU',
             },
@@ -256,17 +259,38 @@ export default function Home() {
             areaServed: {
               '@type': 'City',
               name: 'Москва',
+              '@id': 'https://www.wikidata.org/wiki/Q649',
             },
-            makesOffer: popularServices.map(service => ({
-              '@type': 'Offer',
-              price: service.price_from,
-              priceCurrency: 'RUB',
-              itemOffered: {
-                '@type': 'Service',
-                name: service.name_ru,
-                description: service.description_ru,
-              },
-            })),
+            serviceType: ['Ремонт BMW', 'Ремонт MINI', 'Диагностика BMW', 'ТО BMW', 'Замена масла BMW', 'Ремонт двигателя BMW', 'Замена цепи ГРМ BMW', 'Ремонт турбины BMW', 'Ремонт подвески BMW', 'Шиномонтаж BMW'],
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Услуги по ремонту BMW',
+              itemListElement: popularServices.map((service, index) => ({
+                '@type': 'Offer',
+                position: index + 1,
+                price: service.price_from,
+                priceCurrency: 'RUB',
+                availability: 'https://schema.org/InStock',
+                priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                itemOffered: {
+                  '@type': 'Service',
+                  name: service.name_ru,
+                  description: service.description_ru,
+                  serviceType: service.name_ru,
+                  areaServed: {
+                    '@type': 'City',
+                    name: 'Москва',
+                  },
+                },
+              })),
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '5.0',
+              reviewCount: '500',
+              bestRating: '5',
+              worstRating: '1',
+            },
           }),
         }}
       />

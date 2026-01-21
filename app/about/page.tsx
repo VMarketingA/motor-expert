@@ -8,10 +8,20 @@ export default function About() {
   const { t } = useI18n();
 
   useEffect(() => {
-    document.title = 'Автосервис BMW Москва Мотор Эксперт — о компании';
+    document.title = 'О нас — Автосервис BMW Мотор Эксперт Москва | Ремонт БМВ';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Автосервис BMW Мотор Эксперт в Москве. Ремонт и обслуживание BMW и MINI с 2008 года. Гарантия 24 месяца. Автозаводская ул., 23, корп. 7. Работаем ежедневно с 9:00 до 21:00.');
+      metaDescription.setAttribute('content', 'Автосервис BMW Мотор Эксперт в Москве. Профессиональный ремонт и обслуживание BMW и MINI. Гарантия 24 месяца. Автозаводская ул., 23, корп. 7. Работаем ежедневно с 9:00 до 21:00.');
+    }
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://motorexpert.ru/about');
+    } else {
+      const newCanonical = document.createElement('link');
+      newCanonical.setAttribute('rel', 'canonical');
+      newCanonical.setAttribute('href', 'https://motorexpert.ru/about');
+      document.head.appendChild(newCanonical);
     }
   }, []);
 
