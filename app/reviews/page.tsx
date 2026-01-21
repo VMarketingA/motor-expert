@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useI18n } from '@/lib/i18n';
 import { supabase } from '@/lib/supabase';
 import { Star } from 'lucide-react';
+import Link from 'next/link';
 
 interface Review {
   id: string;
@@ -21,6 +22,12 @@ export default function Reviews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Отзывы о ремонте BMW Москва — Мотор Эксперт';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Отзывы клиентов о ремонте и обслуживании BMW в автосервисе Мотор Эксперт Москва. Реальные отзывы о качестве работ, ценах и сервисе. Средняя оценка 5.0 звезд.');
+    }
+
     async function fetchReviews() {
       const { data, error } = await supabase
         .from('reviews')
@@ -53,7 +60,10 @@ export default function Reviews() {
     <div className="pt-16">
       <section className="bg-white py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center mb-4">{t('reviews_title')}</h1>
+          <h1 className="text-center mb-4 text-4xl lg:text-5xl">Отзывы о ремонте BMW в Москве</h1>
+          <p className="text-center max-w-3xl mx-auto mb-8 text-lg">
+            Реальные отзывы наших клиентов о ремонте и обслуживании BMW в автосервисе Мотор Эксперт. Оцените качество наших услуг по мнению тех, кто уже доверил нам свой автомобиль.
+          </p>
 
           <div className="flex items-center justify-center mb-12">
             <div className="flex items-center">
@@ -73,7 +83,7 @@ export default function Reviews() {
                 <div className="flex items-start">
                   <img
                     src={review.avatar_url}
-                    alt={review.author_name}
+                    alt={`отзыв клиента ${review.author_name} о ремонте BMW Москва`}
                     className="w-16 h-16 object-cover border border-black mr-4"
                   />
                   <div className="flex-1">
@@ -102,6 +112,17 @@ export default function Reviews() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <h2 className="text-2xl font-semibold mb-4">Хотите оставить свой отзыв?</h2>
+            <p className="mb-6">После ремонта вашего BMW мы будем рады получить обратную связь о качестве наших услуг</p>
+            <Link
+              href="/booking"
+              className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
+            >
+              Записаться на ремонт BMW
+            </Link>
           </div>
         </div>
       </section>

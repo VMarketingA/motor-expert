@@ -8,8 +8,8 @@ import Footer from '@/components/Footer';
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
 export const metadata: Metadata = {
-  title: 'Мотор Эксперт - Ремонт и обслуживание BMW в Москве',
-  description: 'Профессиональный ремонт и обслуживание BMW. ТО от 8000 ₽, гарантия 12 месяцев. Специализируемся на BMW более 15 лет.',
+  title: 'Ремонт BMW Москва — Автосервис Мотор Эксперт',
+  description: 'Ремонт и обслуживание BMW в Москве от 2500₽. Диагностика, замена масла, ремонт двигателя N55, замена цепи ГРМ. Гарантия 12 месяцев. Запись: +7-495-114-55-52',
 };
 
 export default function RootLayout({
