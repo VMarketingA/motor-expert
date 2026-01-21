@@ -11,7 +11,7 @@ export default function Services() {
     document.title = 'Услуги ремонта BMW Москва — цены на обслуживание';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Полный перечень услуг по ремонту BMW в Москве: замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Диагностика, ремонт подвески, турбин. Гарантия 12 месяцев.');
+      metaDescription.setAttribute('content', 'Ремонт бмв москва, автосервис бмв москва, ремонт двигателя бмв москва. Замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 12 месяцев');
     }
   }, []);
 
