@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useI18n } from '@/lib/i18n';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
+import { createSafeJsonLd } from '@/lib/security';
 
 interface Review {
   id: string;
@@ -29,20 +30,30 @@ export default function Reviews() {
     }
 
     async function fetchReviews() {
-      if (!supabase) {
+      if (!isSupabaseConfigured) {
+        console.error('Supabase is not configured');
         setLoading(false);
         return;
       }
 
-      const { data, error } = await supabase
-        .from('reviews')
-        .select('*')
-        .order('date', { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from('reviews')
+          .select('*')
+          .order('date', { ascending: false });
 
-      if (data && !error) {
-        setReviews(data);
+        if (error) {
+          console.error('Error loading reviews:', error);
+          setReviews([]);
+        } else if (data) {
+          setReviews(data);
+        }
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+        setReviews([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
 
     fetchReviews();
@@ -135,7 +146,7 @@ export default function Reviews() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: createSafeJsonLd({
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'Мотор Эксперт',

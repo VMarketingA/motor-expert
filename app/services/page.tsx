@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { createSafeJsonLd } from '@/lib/security';
 
 interface Model {
   id: string;
@@ -41,6 +42,12 @@ export default function Services() {
   }, []);
 
   async function loadData() {
+    if (!isSupabaseConfigured) {
+      console.error('Supabase is not configured');
+      setLoading(false);
+      return;
+    }
+
     try {
       const [modelsResponse, servicesResponse] = await Promise.all([
         supabase
@@ -55,14 +62,18 @@ export default function Services() {
           .order('sort_order')
       ]);
 
-      if (modelsResponse.data) {
+      if (modelsResponse.error) {
+        console.error('Error loading models:', modelsResponse.error);
+      } else if (modelsResponse.data) {
         const bmw = modelsResponse.data.filter((m: Model) => m.brand === 'BMW');
         const mini = modelsResponse.data.filter((m: Model) => m.brand === 'MINI');
         setBmwModels(bmw);
         setMiniModels(mini);
       }
 
-      if (servicesResponse.data) {
+      if (servicesResponse.error) {
+        console.error('Error loading services:', servicesResponse.error);
+      } else if (servicesResponse.data) {
         setMaintenanceServices(servicesResponse.data.filter((s: Service) => s.category === 'maintenance'));
         setEngineServices(servicesResponse.data.filter((s: Service) => s.category === 'engine'));
         setSuspensionServices(servicesResponse.data.filter((s: Service) => s.category === 'suspension'));
@@ -230,7 +241,7 @@ export default function Services() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: createSafeJsonLd({
             '@context': 'https://schema.org',
             '@type': 'ItemList',
             itemListElement: allServices.map((service, index) => ({

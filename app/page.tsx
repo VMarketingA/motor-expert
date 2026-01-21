@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
 import { Phone, MapPin, Clock, Shield, Wrench, DollarSign } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { createSafeJsonLd } from '@/lib/security';
 
 interface Service {
   id: string;
@@ -30,29 +31,29 @@ export default function Home() {
   }, []);
 
   async function loadServices() {
+    if (!isSupabaseConfigured) {
+      console.error('Supabase is not configured');
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('services')
         .select('*')
         .eq('is_active', true)
-        .in('name_ru', [
-          'Замена масла BMW',
-          'Замена цепи ГРМ',
-          'Ремонт двигателя',
-          'Компьютерная диагностика',
-          'Ремонт турбин',
-          'Замена тормозных колодок',
-          'Ремонт подвески'
-        ])
-        .order('sort_order');
+        .order('sort_order')
+        .limit(7);
 
       if (error) {
         console.error('Error loading services:', error);
+        setPopularServices([]);
       } else if (data) {
-        setPopularServices(data);
+        setPopularServices(data.slice(0, 7));
       }
     } catch (error) {
       console.error('Error loading services:', error);
+      setPopularServices([]);
     } finally {
       setLoading(false);
     }
@@ -222,7 +223,7 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: createSafeJsonLd({
             '@context': 'https://schema.org',
             '@type': 'AutoRepair',
             name: 'Мотор Эксперт — Автосервис BMW Москва',

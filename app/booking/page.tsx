@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,6 +47,12 @@ export default function BookingPage() {
   }, []);
 
   async function loadModels() {
+    if (!isSupabaseConfigured) {
+      console.error('Supabase is not configured');
+      setLoading(false);
+      return;
+    }
+
     try {
       const { data, error } = await supabase
         .from('models')
@@ -56,11 +62,13 @@ export default function BookingPage() {
 
       if (error) {
         console.error('Error loading models:', error);
+        setAllModels([]);
       } else if (data) {
         setAllModels(data);
       }
     } catch (error) {
       console.error('Error loading models:', error);
+      setAllModels([]);
     } finally {
       setLoading(false);
     }

@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useI18n } from '@/lib/i18n';
 import { ArrowLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 interface Model {
   id: string;
@@ -40,6 +40,12 @@ export default function ModelPage() {
   }, [modelId]);
 
   async function loadData() {
+    if (!isSupabaseConfigured) {
+      console.error('Supabase is not configured');
+      setLoading(false);
+      return;
+    }
+
     try {
       const [modelResponse, servicesResponse] = await Promise.all([
         supabase
@@ -55,11 +61,15 @@ export default function ModelPage() {
           .order('sort_order')
       ]);
 
-      if (modelResponse.data) {
+      if (modelResponse.error) {
+        console.error('Error loading model:', modelResponse.error);
+      } else if (modelResponse.data) {
         setModelInfo(modelResponse.data);
       }
 
-      if (servicesResponse.data) {
+      if (servicesResponse.error) {
+        console.error('Error loading services:', servicesResponse.error);
+      } else if (servicesResponse.data) {
         setMaintenanceServices(servicesResponse.data.filter((s: Service) => s.category === 'maintenance'));
         setEngineServices(servicesResponse.data.filter((s: Service) => s.category === 'engine'));
         setSuspensionServices(servicesResponse.data.filter((s: Service) => s.category === 'suspension'));
