@@ -23,7 +23,7 @@ const translations = {
     nav_testimonials: 'Благодарности',
 
     hero_title: 'Ремонт и обслуживание BMW в Москве',
-    hero_subtitle: 'ТО от 8000 ₽, гарантия 12 месяцев',
+    hero_subtitle: 'ТО от 8000 ₽, гарантия 24 месяца',
     hero_cta: 'Записаться на ТО',
 
     problems_title: 'Двигатель вашего BMW барахлит?',
@@ -100,7 +100,7 @@ const translations = {
     nav_testimonials: 'Testimonials',
 
     hero_title: 'BMW Repair and Maintenance in Moscow',
-    hero_subtitle: 'Maintenance from 8000 ₽, 12 months warranty',
+    hero_subtitle: 'Maintenance from 8000 ₽, 24 months warranty',
     hero_cta: 'Book Maintenance',
 
     problems_title: 'Is Your BMW Engine Misbehaving?',

@@ -35,7 +35,7 @@ export default function Services() {
     document.title = 'Услуги ремонта BMW Москва — цены на обслуживание';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Ремонт бмв москва, автосервис бмв москва, ремонт двигателя бмв москва. Замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 12 месяцев');
+      metaDescription.setAttribute('content', 'Ремонт бмв москва, автосервис бмв москва, ремонт двигателя бмв москва. Замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 24 месяца');
     }
 
     loadData();
@@ -105,7 +105,7 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-center mb-8 text-4xl lg:text-5xl">Услуги по ремонту и обслуживанию BMW в Москве</h1>
           <p className="text-center max-w-3xl mx-auto mb-16 text-lg">
-            Профессиональный автосервис BMW Москва. Ремонт двигателя, замена цепи ГРМ, ремонт турбин, диагностика, ремонт подвески. Работаем со всеми моделями BMW и MINI. Гарантия 12 месяцев.
+            Профессиональный автосервис BMW Москва. Ремонт двигателя, замена цепи ГРМ, ремонт турбин, диагностика, ремонт подвески. Работаем со всеми моделями BMW и MINI. Гарантия 24 месяца.
           </p>
 
           <div className="mb-20">
