@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 import { Phone, MapPin, Clock, Shield, Wrench, DollarSign } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
@@ -17,18 +18,21 @@ interface Service {
 
 export default function Home() {
   const { t } = useI18n();
+  const { settings } = useSiteSettings();
   const [popularServices, setPopularServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Ремонт BMW Москва — Автосервис Мотор Эксперт | Диагностика, ТО, ремонт двигателя';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ +7-495-114-55-52');
+    if (settings.company_name) {
+      document.title = `Ремонт BMW Москва — Автосервис ${settings.company_name} | Диагностика, ТО, ремонт двигателя`;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ ${settings.phone_display || settings.phone}`);
+      }
     }
 
     loadServices();
-  }, []);
+  }, [settings]);
 
   async function loadServices() {
     if (!isSupabaseConfigured) {
@@ -178,8 +182,8 @@ export default function Home() {
                 <Phone className="w-5 h-5 mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="mb-1 text-base">{t('contacts_phone')}</h3>
-                  <a href="tel:+74951145552" className="text-[#003366] hover:underline text-sm">
-                    +7-495-114-55-52
+                  <a href={`tel:${settings.phone || '+74951145552'}`} className="text-[#003366] hover:underline text-sm">
+                    {settings.phone_display || settings.phone || '+7-495-114-55-52'}
                   </a>
                 </div>
               </div>
@@ -227,17 +231,17 @@ export default function Home() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             '@id': 'https://motorexpert.ru',
-            name: 'Мотор Эксперт',
-            alternateName: 'Автосервис BMW Мотор Эксперт',
-            description: 'Профессиональный ремонт и обслуживание BMW и MINI в Москве. Компьютерная диагностика, замена масла, ремонт двигателя, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.',
+            name: settings.company_name || 'Мотор Эксперт',
+            alternateName: settings.company_full_name || 'Автосервис BMW Мотор Эксперт',
+            description: settings.company_description || 'Профессиональный ремонт и обслуживание BMW и MINI в Москве. Компьютерная диагностика, замена масла, ремонт двигателя, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.',
             image: '/image.png',
             logo: '/image.png',
             url: 'https://motorexpert.ru',
-            telephone: '+7-495-114-55-52',
+            telephone: settings.phone || '+7-495-114-55-52',
             priceRange: '₽₽₽',
             address: {
               '@type': 'PostalAddress',
-              streetAddress: 'Автозаводская ул., 23, корп. 7',
+              streetAddress: settings.address_full || 'Автозаводская ул., 23, корп. 7',
               addressLocality: 'Москва',
               addressRegion: 'Москва',
               postalCode: '115280',

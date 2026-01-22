@@ -2,16 +2,20 @@
 
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 import { useEffect } from 'react';
 
 export default function About() {
   const { t } = useI18n();
+  const { settings, loading } = useSiteSettings();
 
   useEffect(() => {
-    document.title = 'О нас — Автосервис BMW Мотор Эксперт Москва | Ремонт БМВ';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Автосервис BMW Мотор Эксперт в Москве. Профессиональный ремонт и обслуживание BMW и MINI. Гарантия 24 месяца. Автозаводская ул., 23, корп. 7. Работаем ежедневно с 9:00 до 21:00.');
+    if (settings.address_full) {
+      document.title = `О нас — Автосервис BMW ${settings.company_name} Москва | Ремонт БМВ`;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `Автосервис BMW ${settings.company_name} в Москве. Профессиональный ремонт и обслуживание BMW и MINI. Гарантия 24 месяца. ${settings.address_full}. ${settings.work_hours}.`);
+      }
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -23,17 +27,27 @@ export default function About() {
       newCanonical.setAttribute('href', 'https://motorexpert.ru/about');
       document.head.appendChild(newCanonical);
     }
-  }, []);
+  }, [settings]);
+
+  if (loading) {
+    return (
+      <div className="pt-16 min-h-screen flex items-center justify-center">
+        <div className="text-xl">Загрузка...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-16">
       <section className="bg-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center mb-12 text-4xl lg:text-5xl">Автосервис BMW Мотор Эксперт в Москве</h1>
+          <h1 className="text-center mb-12 text-4xl lg:text-5xl">
+            {settings.company_full_name || 'Автосервис BMW Мотор Эксперт в Москве'}
+          </h1>
 
           <div className="prose prose-lg max-w-none">
             <p className="text-lg leading-relaxed mb-6">
-              Автосервис BMW &quot;Мотор Эксперт&quot; — это профессиональный сервисный центр по ремонту и обслуживанию автомобилей BMW и MINI в Москве. Мы работаем с 2008 года и специализируемся исключительно на баварских автомобилях.
+              {settings.company_description || 'Автосервис BMW "Мотор Эксперт" — это профессиональный сервисный центр по ремонту и обслуживанию автомобилей BMW и MINI в Москве, специализирующийся исключительно на баварских автомобилях.'}
             </p>
 
             <h2 className="text-2xl font-semibold mb-4 mt-8">Наши услуги</h2>
@@ -54,13 +68,13 @@ export default function About() {
 
             <h2 className="text-2xl font-semibold mb-4 mt-8">Контакты автосервиса BMW в Москве</h2>
             <p className="text-base leading-relaxed mb-4">
-              <strong>Адрес:</strong> Москва, Автозаводская ул., 23, корп. 7 (напротив ТЦ &quot;Ривьера&quot;)
+              <strong>Адрес:</strong> {settings.address_full} {settings.address_note && `(${settings.address_note})`}
             </p>
             <p className="text-base leading-relaxed mb-4">
-              <strong>Телефон:</strong> <a href="tel:+74951145552" className="text-[#003366] hover:underline">+7-495-114-55-52</a>
+              <strong>Телефон:</strong> <a href={`tel:${settings.phone}`} className="text-[#003366] hover:underline">{settings.phone_display || settings.phone}</a>
             </p>
             <p className="text-base leading-relaxed mb-8">
-              <strong>Режим работы:</strong> Ежедневно с 9:00 до 21:00
+              <strong>Режим работы:</strong> {settings.work_hours}
             </p>
 
             <div className="text-center mt-12">

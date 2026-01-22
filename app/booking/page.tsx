@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -38,29 +39,32 @@ function BookingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedModel = searchParams.get('model') || '';
+  const { settings } = useSiteSettings();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [allModels, setAllModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Запись на ремонт BMW Москва — Автосервис Мотор Эксперт | Онлайн запись';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Онлайн запись на ремонт и диагностику BMW в автосервисе Мотор Эксперт Москва. Быстрая запись, удобное время, профессиональное обслуживание. Гарантия 24 месяца ☎ +7-495-114-55-52');
-    }
+    if (settings.company_name) {
+      document.title = `Запись на ремонт BMW Москва — Автосервис ${settings.company_name} | Онлайн запись`;
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', `Онлайн запись на ремонт и диагностику BMW в автосервисе ${settings.company_name} Москва. Быстрая запись, удобное время, профессиональное обслуживание. Гарантия 24 месяца ☎ ${settings.phone_display || settings.phone}`);
+      }
 
-    const canonicalLink = document.querySelector('link[rel="canonical"]');
-    if (canonicalLink) {
-      canonicalLink.setAttribute('href', 'https://motorexpert.ru/booking');
-    } else {
-      const newCanonical = document.createElement('link');
-      newCanonical.setAttribute('rel', 'canonical');
-      newCanonical.setAttribute('href', 'https://motorexpert.ru/booking');
-      document.head.appendChild(newCanonical);
+      const canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', 'https://motorexpert.ru/booking');
+      } else {
+        const newCanonical = document.createElement('link');
+        newCanonical.setAttribute('rel', 'canonical');
+        newCanonical.setAttribute('href', 'https://motorexpert.ru/booking');
+        document.head.appendChild(newCanonical);
+      }
     }
 
     loadModels();
-  }, []);
+  }, [settings]);
 
   async function loadModels() {
     if (!isSupabaseConfigured) {

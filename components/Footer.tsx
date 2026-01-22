@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 import { Phone, MapPin, Instagram } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useI18n();
+  const { settings } = useSiteSettings();
 
   const navLinks = [
     { href: '/', label: t('nav_home') },
@@ -22,7 +24,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">Мотор Эксперт</h3>
+            <h3 className="text-lg font-bold mb-4">{settings.company_name || 'Мотор Эксперт'}</h3>
             <p className="text-sm mb-4">
               Профессиональный ремонт и обслуживание BMW в Москве
             </p>
@@ -33,13 +35,13 @@ export default function Footer() {
             <div className="space-y-2 text-sm">
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2" />
-                <a href="tel:+74951145552" className="hover:text-[#003366]">
-                  +7-495-114-55-52
+                <a href={`tel:${settings.phone}`} className="hover:text-[#003366]">
+                  {settings.phone_display || settings.phone || '+7-495-114-55-52'}
                 </a>
               </div>
               <div className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-1" />
-                <span>{t('contacts_address_value')}</span>
+                <span>{settings.address_full || t('contacts_address_value')}</span>
               </div>
             </div>
             <div className="flex space-x-4 mt-4">
@@ -76,7 +78,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-black mt-8 pt-8 text-center text-sm space-y-1">
-          <p>&copy; 2020-2026 Мотор Эксперт. Все права защищены.</p>
+          <p>&copy; 2020-2026 {settings.company_name || 'Мотор Эксперт'}. Все права защищены.</p>
           <p>Разработано VMarketing</p>
         </div>
       </div>
