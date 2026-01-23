@@ -23,10 +23,18 @@ export default function Reviews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Отзывы о ремонте BMW Москва — Автосервис Мотор Эксперт | Реальные отзывы клиентов';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Отзывы клиентов о ремонте и обслуживании BMW в автосервисе Мотор Эксперт Москва. Реальные отзывы о качестве работ, ценах и сервисе. Средняя оценка 5.0 звезд ☎ +7-495-114-55-52');
+    if (language === 'ru') {
+      document.title = 'Отзывы о ремонте BMW Москва — Автосервис Мотор Эксперт | Реальные отзывы клиентов';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Отзывы клиентов о ремонте и обслуживании BMW в автосервисе Мотор Эксперт Москва. Реальные отзывы о качестве работ, ценах и сервисе. Средняя оценка 5.0 звезд ☎ +7-495-114-55-52');
+      }
+    } else {
+      document.title = 'BMW Repair Reviews Moscow — Motor Expert Auto Service | Real Customer Reviews';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Customer reviews for BMW repair and maintenance at Motor Expert Auto Service Moscow. Real reviews about work quality, prices and service. Average rating 5.0 stars ☎ +7-495-114-55-52');
+      }
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');

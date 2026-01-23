@@ -6,15 +6,23 @@ import { useSiteSettings } from '@/hooks/use-site-settings';
 import { useEffect } from 'react';
 
 export default function About() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { settings, loading } = useSiteSettings();
 
   useEffect(() => {
     if (settings.address_full) {
-      document.title = `О нас — Автосервис BMW ${settings.company_name} Москва | Ремонт БМВ`;
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', `Автосервис BMW ${settings.company_name} в Москве. Профессиональный ремонт и обслуживание BMW и MINI. Гарантия 24 месяца. ${settings.address_full}. ${settings.work_hours}.`);
+      if (language === 'ru') {
+        document.title = `О нас — Автосервис BMW ${settings.company_name} Москва | Ремонт БМВ`;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute('content', `Автосервис BMW ${settings.company_name} в Москве. Профессиональный ремонт и обслуживание BMW и MINI. Гарантия 24 месяца. ${settings.address_full}. ${settings.work_hours}.`);
+        }
+      } else {
+        document.title = `About Us — BMW Auto Service ${settings.company_name} Moscow | BMW Repair`;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute('content', `BMW auto service ${settings.company_name} in Moscow. Professional BMW and MINI repair and maintenance. 24-month warranty. ${settings.address_full}. ${settings.work_hours}.`);
+        }
       }
     }
 
@@ -27,12 +35,12 @@ export default function About() {
       newCanonical.setAttribute('href', 'https://motorexpert.ru/about');
       document.head.appendChild(newCanonical);
     }
-  }, [settings]);
+  }, [settings, language]);
 
   if (loading) {
     return (
       <div className="pt-16 min-h-screen flex items-center justify-center">
-        <div className="text-xl">Загрузка...</div>
+        <div className="text-xl">{t('loading')}</div>
       </div>
     );
   }
@@ -42,39 +50,39 @@ export default function About() {
       <section className="bg-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-center mb-12 text-4xl lg:text-5xl">
-            {settings.company_full_name || 'Автосервис BMW Мотор Эксперт в Москве'}
+            {settings.company_full_name || t('about_title')}
           </h1>
 
           <div className="prose prose-lg max-w-none">
             <p className="text-lg leading-relaxed mb-6">
-              {settings.company_description || 'Автосервис BMW "Мотор Эксперт" — это профессиональный сервисный центр по ремонту и обслуживанию автомобилей BMW и MINI в Москве, специализирующийся исключительно на баварских автомобилях.'}
+              {settings.company_description || t('about_text')}
             </p>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">Наши услуги</h2>
+            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_our_services')}</h2>
             <ul className="list-disc list-inside mb-6 space-y-2">
-              <li>Компьютерная диагностика BMW всех систем</li>
-              <li>Ремонт двигателя BMW: N20, N47, N55, B58, B48</li>
-              <li>Замена цепи ГРМ BMW с гарантией</li>
-              <li>Ремонт турбин BMW всех моделей</li>
-              <li>Ремонт подвески BMW и 3D сход-развал</li>
-              <li>Замена масла BMW с оригинальными материалами</li>
-              <li>Техническое обслуживание BMW любой сложности</li>
+              <li>{t('about_service_1')}</li>
+              <li>{t('about_service_2')}</li>
+              <li>{t('about_service_3')}</li>
+              <li>{t('about_service_4')}</li>
+              <li>{t('about_service_5')}</li>
+              <li>{t('about_service_6')}</li>
+              <li>{t('about_service_7')}</li>
             </ul>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">Модели BMW, которые мы обслуживаем</h2>
+            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_models_title')}</h2>
             <p className="text-base leading-relaxed mb-6">
-              Ремонт BMW E81, E82, E87, E88, F20, F21, F22, F23, F45, E90, E93, F30, F34, F32, F33, F36, E60, E61, F10, F11, G30, F07, E63, E64, F12, F13, F06, G32, E65, E66, F01, F02, G11, G12, G15, X1, E84, F48, X2, F39, X3, F25, G01, X4, F26, G02, X5, E53, E70, F15, G05, X6, E71, F16, G06, и ремонт MINI: Cabrio, Clubman, Countryman, Coupe, Hatch, Paceman, Roadster.
+              {t('about_models_text')}
             </p>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">Контакты автосервиса BMW в Москве</h2>
+            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_contacts_title')}</h2>
             <p className="text-base leading-relaxed mb-4">
-              <strong>Адрес:</strong> {settings.address_full} {settings.address_note && `(${settings.address_note})`}
+              <strong>{t('contacts_address')}:</strong> {settings.address_full} {settings.address_note && `(${settings.address_note})`}
             </p>
             <p className="text-base leading-relaxed mb-4">
-              <strong>Телефон:</strong> <a href={`tel:${settings.phone}`} className="text-[#003366] hover:underline">{settings.phone_display || settings.phone}</a>
+              <strong>{t('contacts_phone')}:</strong> <a href={`tel:${settings.phone}`} className="text-[#003366] hover:underline">{settings.phone_display || settings.phone}</a>
             </p>
             <p className="text-base leading-relaxed mb-8">
-              <strong>Режим работы:</strong> {settings.work_hours}
+              <strong>{t('contacts_schedule')}:</strong> {settings.work_hours}
             </p>
 
             <div className="text-center mt-12">
@@ -82,13 +90,13 @@ export default function About() {
                 href="/services"
                 className="inline-block bg-[#003366] text-white px-8 py-4 text-lg font-semibold hover:bg-[#004488] transition-colors mr-4"
               >
-                Наши услуги
+                {t('nav_services')}
               </Link>
               <Link
                 href="/booking"
                 className="inline-block border-2 border-[#003366] text-[#003366] px-8 py-4 text-lg font-semibold hover:bg-[#003366] hover:text-white transition-colors"
               >
-                Записаться на ремонт
+                {t('hero_cta')}
               </Link>
             </div>
           </div>

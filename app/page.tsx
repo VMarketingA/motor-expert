@@ -98,22 +98,22 @@ export default function Home() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
           <div className="max-w-3xl">
-            <h1 className="mb-8 text-5xl lg:text-6xl">Ремонт BMW в Москве — Автосервис Мотор Эксперт</h1>
+            <h1 className="mb-8 text-5xl lg:text-6xl">{t('hero_title')}</h1>
             <p className="mb-6 text-xl leading-relaxed">
-              Профессиональный ремонт и обслуживание BMW и MINI. Компьютерная диагностика, замена масла, ремонт двигателя, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.
+              {t('hero_subtitle')}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/services"
                 className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
               >
-                Наши услуги
+                {t('nav_services')}
               </Link>
               <Link
                 href="/booking"
                 className="inline-block border-2 border-[#003366] text-[#003366] px-8 py-4 font-semibold hover:bg-[#003366] hover:text-white transition-colors"
               >
-                Записаться на ремонт
+                {t('hero_cta')}
               </Link>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function Home() {
 
       <section className="bg-white py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">Почему выбирают наш автосервис BMW в Москве</h2>
+          <h2 className="text-center mb-12 text-3xl">{t('advantages_title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {advantages.map((advantage, index) => (
               <div key={index} className="text-center">
@@ -137,24 +137,28 @@ export default function Home() {
 
       <section className="bg-gray-50 py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">Популярные услуги ремонта BMW</h2>
+          <h2 className="text-center mb-12 text-3xl">{t('popular_services_title')}</h2>
           {loading ? (
             <div className="text-center py-12">
-              <div className="text-xl">Загрузка услуг...</div>
+              <div className="text-xl">{t('loading')}</div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {popularServices.map((service) => (
                 <Link key={service.id} href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-                  <h3 className="mb-3 text-lg font-semibold">{service.name_ru}</h3>
-                  <p className="text-sm mb-4">{service.description_ru}</p>
-                  <span className="text-[#003366] text-sm font-semibold">от {service.price_from.toLocaleString('ru-RU')} ₽ →</span>
+                  <h3 className="mb-3 text-lg font-semibold">
+                    {language === 'ru' ? service.name_ru : (service.name_en || service.name_ru)}
+                  </h3>
+                  <p className="text-sm mb-4">
+                    {language === 'ru' ? service.description_ru : (service.description_en || service.description_ru)}
+                  </p>
+                  <span className="text-[#003366] text-sm font-semibold">{t('services_from')} {service.price_from.toLocaleString('ru-RU')} ₽ →</span>
                 </Link>
               ))}
               <Link href="/reviews" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-                <h3 className="mb-3 text-lg font-semibold">Отзывы клиентов</h3>
-                <p className="text-sm mb-4">Более 500 довольных клиентов. Средняя оценка 5.0</p>
-                <span className="text-[#003366] text-sm font-semibold">Читать отзывы →</span>
+                <h3 className="mb-3 text-lg font-semibold">{t('reviews_title')}</h3>
+                <p className="text-sm mb-4">{t('reviews_description')}</p>
+                <span className="text-[#003366] text-sm font-semibold">{t('read_reviews')} →</span>
               </Link>
             </div>
           )}
@@ -163,7 +167,7 @@ export default function Home() {
 
       <section className="bg-white py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">Частые проблемы BMW и их решение</h2>
+          <h2 className="text-center mb-12 text-3xl">{t('problems_title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {problems.map((problem, index) => (
               <div key={index} className="border border-black p-6">
@@ -177,7 +181,7 @@ export default function Home() {
               href="/calculator"
               className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
             >
-              Рассчитать стоимость ремонта
+              {t('services_calculate')}
             </Link>
           </div>
         </div>
@@ -227,7 +231,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="inline-block mt-3 text-[#003366] hover:underline text-sm"
               >
-                Открыть на Яндекс Картах
+                {t('open_on_maps')}
               </a>
             </div>
           </div>

@@ -52,13 +52,21 @@ const galleryPhotos = [
 ];
 
 export default function Gallery() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
 
   useEffect(() => {
-    document.title = 'Галерея работ — Ремонт BMW Москва | Автосервис Мотор Эксперт';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Фото наших работ по ремонту и обслуживанию BMW в Москве. Диагностика, замена цепи ГРМ, ремонт двигателя, ремонт турбины, ремонт подвески. Автосервис Мотор Эксперт ☎ +7-495-114-55-52');
+    if (language === 'ru') {
+      document.title = 'Галерея работ — Ремонт BMW Москва | Автосервис Мотор Эксперт';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Фото наших работ по ремонту и обслуживанию BMW в Москве. Диагностика, замена цепи ГРМ, ремонт двигателя, ремонт турбины, ремонт подвески. Автосервис Мотор Эксперт ☎ +7-495-114-55-52');
+      }
+    } else {
+      document.title = 'Work Gallery — BMW Repair Moscow | Motor Expert Auto Service';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Photos of our BMW repair and maintenance work in Moscow. Diagnostics, timing chain replacement, engine repair, turbo repair, suspension repair. Motor Expert Auto Service ☎ +7-495-114-55-52');
+      }
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -70,7 +78,7 @@ export default function Gallery() {
       newCanonical.setAttribute('href', 'https://motorexpert.ru/gallery');
       document.head.appendChild(newCanonical);
     }
-  }, []);
+  }, [language]);
 
   return (
     <div className="pt-16">

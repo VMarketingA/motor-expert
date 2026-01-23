@@ -26,7 +26,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">{settings.company_name || 'Мотор Эксперт'}</h3>
             <p className="text-sm mb-4">
-              Профессиональный ремонт и обслуживание BMW в Москве
+              {t('footer_description')}
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4">Навигация</h3>
+            <h3 className="text-lg font-bold mb-4">{t('footer_navigation')}</h3>
             <div className="space-y-2 text-sm">
               {navLinks.map((link) => (
                 <Link
@@ -78,8 +78,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-black mt-8 pt-8 text-center text-sm space-y-1">
-          <p>&copy; 2020-2026 {settings.company_name || 'Мотор Эксперт'}. Все права защищены.</p>
-          <p>Разработано VMarketing</p>
+          <p>&copy; 2020-2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
+          <p>{t('footer_developed')}</p>
         </div>
       </div>
     </footer>

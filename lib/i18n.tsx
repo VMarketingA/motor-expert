@@ -23,9 +23,9 @@ const translations = {
     nav_testimonials: 'Благодарности',
     nav_booking: 'Запись',
 
-    hero_title: 'Профессиональный ремонт и обслуживание BMW в Москве',
-    hero_subtitle: 'Качественный сервис с гарантией 24 месяца',
-    hero_cta: 'Записаться на сервис',
+    hero_title: 'Ремонт BMW в Москве — Автосервис Мотор Эксперт',
+    hero_subtitle: 'Профессиональный ремонт и обслуживание BMW и MINI. Компьютерная диагностика, замена масла, ремонт двигателя, замена цепи ГРМ, ремонт турбин, ремонт подвески. Гарантия 24 месяца.',
+    hero_cta: 'Записаться на ремонт',
     hero_phone: 'Позвонить',
 
     problems_title: 'Проблемы с двигателем BMW?',
@@ -38,7 +38,8 @@ const translations = {
     problem_vanos_title: 'VANOS',
     problem_vanos_desc: 'Проблемы с системой изменения фаз газораспределения',
 
-    advantages_title: 'Почему выбирают нас',
+    advantages_title: 'Почему выбирают наш автосервис BMW в Москве',
+    popular_services_title: 'Популярные услуги ремонта BMW',
     advantage_warranty: 'Гарантия',
     advantage_warranty_desc: '24 месяца на все работы',
     advantage_parts: 'Оригинальные запчасти',
@@ -60,12 +61,23 @@ const translations = {
     contacts_form_message: 'Сообщение',
     contacts_form_submit: 'Отправить',
 
-    about_title: 'О нашем автосервисе',
+    about_title: 'Автосервис BMW Мотор Эксперт в Москве',
     about_subtitle: 'Профессиональный ремонт BMW в Москве',
-    about_text: 'Мотор Эксперт - специализированный автосервис по ремонту и обслуживанию автомобилей BMW и MINI. Мы предлагаем полный спектр услуг от диагностики до капитального ремонта двигателя.',
+    about_text: 'Автосервис BMW "Мотор Эксперт" — это профессиональный сервисный центр по ремонту и обслуживанию автомобилей BMW и MINI в Москве, специализирующийся исключительно на баварских автомобилях.',
     about_experience: 'Более 10 лет опыта',
     about_clients: 'Более 1000 довольных клиентов',
     about_warranty: 'Гарантия 24 месяца',
+    about_our_services: 'Наши услуги',
+    about_service_1: 'Компьютерная диагностика BMW всех систем',
+    about_service_2: 'Ремонт двигателя BMW: N20, N47, N55, B58, B48',
+    about_service_3: 'Замена цепи ГРМ BMW с гарантией',
+    about_service_4: 'Ремонт турбин BMW всех моделей',
+    about_service_5: 'Ремонт подвески BMW и 3D сход-развал',
+    about_service_6: 'Замена масла BMW с оригинальными материалами',
+    about_service_7: 'Техническое обслуживание BMW любой сложности',
+    about_models_title: 'Модели BMW, которые мы обслуживаем',
+    about_models_text: 'Ремонт BMW E81, E82, E87, E88, F20, F21, F22, F23, F45, E90, E93, F30, F34, F32, F33, F36, E60, E61, F10, F11, G30, F07, E63, E64, F12, F13, F06, G32, E65, E66, F01, F02, G11, G12, G15, X1, E84, F48, X2, F39, X3, F25, G01, X4, F26, G02, X5, E53, E70, F15, G05, X6, E71, F16, G06, и ремонт MINI: Cabrio, Clubman, Countryman, Coupe, Hatch, Paceman, Roadster.',
+    about_contacts_title: 'Контакты автосервиса BMW в Москве',
 
     services_title: 'Услуги по ремонту и обслуживанию BMW в Москве',
     services_subtitle: 'Профессиональный автосервис BMW Москва. Ремонт двигателя, замена цепи ГРМ, ремонт турбин, диагностика, ремонт подвески. Работаем со всеми моделями BMW и MINI. Гарантия 24 месяца.',
@@ -92,6 +104,8 @@ const translations = {
 
     reviews_title: 'Отзывы клиентов',
     reviews_subtitle: 'Что говорят наши клиенты о нашем сервисе',
+    reviews_description: 'Более 500 довольных клиентов. Средняя оценка 5.0',
+    read_reviews: 'Читать отзывы',
 
     testimonials_title: 'Благодарности от клиентов',
     testimonials_subtitle: 'Письменные благодарности от наших довольных клиентов',
@@ -112,12 +126,16 @@ const translations = {
     footer_about: 'О нас',
     footer_services: 'Услуги',
     footer_contact: 'Контакты',
-    footer_developed: 'Разработано Motor Expert Team',
+    footer_developed: 'Разработано VMarketing',
     footer_rights: 'Все права защищены',
+    footer_description: 'Профессиональный ремонт и обслуживание BMW в Москве',
+    footer_navigation: 'Навигация',
 
     loading: 'Загрузка...',
     error: 'Ошибка',
     try_again: 'Попробовать снова',
+    open_on_maps: 'Открыть на Яндекс Картах',
+    coming_soon: 'Скоро здесь появятся благодарности',
   },
   en: {
     nav_home: 'Home',
@@ -129,9 +147,9 @@ const translations = {
     nav_testimonials: 'Testimonials',
     nav_booking: 'Booking',
 
-    hero_title: 'Professional BMW Repair and Maintenance in Moscow',
-    hero_subtitle: 'Quality service with 24-month warranty',
-    hero_cta: 'Book Service',
+    hero_title: 'BMW Repair in Moscow — Motor Expert Auto Service',
+    hero_subtitle: 'Professional BMW and MINI repair and maintenance. Computer diagnostics, oil change, engine repair, timing chain replacement, turbo repair, suspension repair. 24-month warranty.',
+    hero_cta: 'Book Repair',
     hero_phone: 'Call Now',
 
     problems_title: 'BMW Engine Problems?',
@@ -144,7 +162,8 @@ const translations = {
     problem_vanos_title: 'VANOS',
     problem_vanos_desc: 'Variable valve timing system issues',
 
-    advantages_title: 'Why Choose Us',
+    advantages_title: 'Why Choose Our BMW Auto Service in Moscow',
+    popular_services_title: 'Popular BMW Repair Services',
     advantage_warranty: 'Warranty',
     advantage_warranty_desc: '24 months on all work',
     advantage_parts: 'Original Parts',
@@ -166,12 +185,23 @@ const translations = {
     contacts_form_message: 'Message',
     contacts_form_submit: 'Send',
 
-    about_title: 'About Our Auto Service',
+    about_title: 'BMW Motor Expert Auto Service in Moscow',
     about_subtitle: 'Professional BMW Repair in Moscow',
-    about_text: 'Motor Expert is a specialized auto service for BMW and MINI repair and maintenance. We offer a full range of services from diagnostics to complete engine overhaul.',
+    about_text: 'BMW Motor Expert Auto Service is a professional service center for BMW and MINI repair and maintenance in Moscow, specializing exclusively in Bavarian automobiles.',
     about_experience: 'Over 10 years of experience',
     about_clients: 'Over 1000 satisfied customers',
     about_warranty: '24-month warranty',
+    about_our_services: 'Our Services',
+    about_service_1: 'Computer diagnostics of all BMW systems',
+    about_service_2: 'BMW engine repair: N20, N47, N55, B58, B48',
+    about_service_3: 'BMW timing chain replacement with warranty',
+    about_service_4: 'BMW turbo repair for all models',
+    about_service_5: 'BMW suspension repair and 3D wheel alignment',
+    about_service_6: 'BMW oil change with original materials',
+    about_service_7: 'BMW technical maintenance of any complexity',
+    about_models_title: 'BMW Models We Service',
+    about_models_text: 'BMW repair: E81, E82, E87, E88, F20, F21, F22, F23, F45, E90, E93, F30, F34, F32, F33, F36, E60, E61, F10, F11, G30, F07, E63, E64, F12, F13, F06, G32, E65, E66, F01, F02, G11, G12, G15, X1, E84, F48, X2, F39, X3, F25, G01, X4, F26, G02, X5, E53, E70, F15, G05, X6, E71, F16, G06, and MINI repair: Cabrio, Clubman, Countryman, Coupe, Hatch, Paceman, Roadster.',
+    about_contacts_title: 'BMW Auto Service Contacts in Moscow',
 
     services_title: 'BMW Repair and Maintenance Services in Moscow',
     services_subtitle: 'Professional BMW auto service in Moscow. Engine repair, timing chain replacement, turbo repair, diagnostics, suspension repair. We work with all BMW and MINI models. 24-month warranty.',
@@ -198,6 +228,8 @@ const translations = {
 
     reviews_title: 'Customer Reviews',
     reviews_subtitle: 'What our customers say about our service',
+    reviews_description: 'Over 500 satisfied customers. Average rating 5.0',
+    read_reviews: 'Read Reviews',
 
     testimonials_title: 'Customer Testimonials',
     testimonials_subtitle: 'Written testimonials from our satisfied customers',
@@ -218,17 +250,21 @@ const translations = {
     footer_about: 'About Us',
     footer_services: 'Services',
     footer_contact: 'Contact',
-    footer_developed: 'Developed by Motor Expert Team',
+    footer_developed: 'Developed by VMarketing',
     footer_rights: 'All rights reserved',
+    footer_description: 'Professional BMW repair and maintenance in Moscow',
+    footer_navigation: 'Navigation',
 
     loading: 'Loading...',
     error: 'Error',
     try_again: 'Try Again',
+    open_on_maps: 'Open on Yandex Maps',
+    coming_soon: 'Testimonials coming soon',
   },
 };
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>('ru');
 
   useEffect(() => {
     const saved = localStorage.getItem('language') as Language;
