@@ -11,28 +11,38 @@ import { createSafeJsonLd } from '@/lib/security';
 interface Service {
   id: string;
   name_ru: string;
+  name_en: string;
   description_ru: string;
+  description_en: string;
   price_from: number;
   category: string;
 }
 
 export default function Home() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { settings } = useSiteSettings();
   const [popularServices, setPopularServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (settings.company_name) {
-      document.title = `Ремонт BMW Москва — Автосервис ${settings.company_name} | Диагностика, ТО, ремонт двигателя`;
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', `Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ ${settings.phone_display || settings.phone}`);
+      if (language === 'ru') {
+        document.title = `Ремонт BMW Москва — Автосервис ${settings.company_name} | Диагностика, ТО, ремонт двигателя`;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute('content', `Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ ${settings.phone_display || settings.phone}`);
+        }
+      } else {
+        document.title = `BMW Repair Moscow — ${settings.company_name} Auto Service | Diagnostics, Maintenance, Engine Repair`;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+          metaDescription.setAttribute('content', `Professional BMW repair in Moscow ⚡ Oil change from 1000₽ ⚡ Engine repair from 80000₽ ⚡ Timing chain replacement from 35000₽ ⚡ 24-month warranty ☎ ${settings.phone_display || settings.phone}`);
+        }
       }
     }
 
     loadServices();
-  }, [settings]);
+  }, [settings, language]);
 
   async function loadServices() {
     if (!isSupabaseConfigured) {

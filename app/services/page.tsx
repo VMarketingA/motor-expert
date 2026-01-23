@@ -19,7 +19,9 @@ interface Service {
   id: string;
   category: string;
   name_ru: string;
+  name_en: string;
   description_ru: string;
+  description_en: string;
   price_from: number;
 }
 
@@ -33,11 +35,21 @@ export default function Services() {
   const [servicesByCategory, setServicesByCategory] = useState<ServicesByCategory>({});
   const [loading, setLoading] = useState(true);
 
+  const { t, language } = useI18n();
+
   useEffect(() => {
-    document.title = 'Услуги ремонта BMW Москва — Автосервис Мотор Эксперт | Цены на ТО и обслуживание';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Услуги автосервиса BMW в Москве: ТО, диагностика, замена масла от 1900₽, замена фильтров от 800₽, ремонт подвески от 1200₽. Гарантия 24 месяца ☎ +7-495-114-55-52');
+    if (language === 'ru') {
+      document.title = 'Услуги ремонта BMW Москва — Автосервис Мотор Эксперт | Цены на ТО и обслуживание';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Услуги автосервиса BMW в Москве: ТО, диагностика, замена масла от 1900₽, замена фильтров от 800₽, ремонт подвески от 1200₽. Гарантия 24 месяца ☎ +7-495-114-55-52');
+      }
+    } else {
+      document.title = 'BMW Repair Services Moscow — Motor Expert Auto Service | Maintenance Prices';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'BMW auto service in Moscow: maintenance, diagnostics, oil change from 1900₽, filter replacement from 800₽, suspension repair from 1200₽. 24-month warranty ☎ +7-495-114-55-52');
+      }
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -51,7 +63,7 @@ export default function Services() {
     }
 
     loadData();
-  }, []);
+  }, [language]);
 
   async function loadData() {
     if (!isSupabaseConfigured) {
@@ -102,13 +114,11 @@ export default function Services() {
     }
   }
 
-  const { t } = useI18n();
-
   if (loading) {
     return (
       <div className="pt-16 min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-2xl mb-4">Загрузка...</div>
+          <div className="text-2xl mb-4">{t('loading')}</div>
         </div>
       </div>
     );
@@ -120,15 +130,15 @@ export default function Services() {
     <div className="pt-16">
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center mb-8 text-4xl lg:text-5xl">Услуги по ремонту и обслуживанию BMW в Москве</h1>
+          <h1 className="text-center mb-8 text-4xl lg:text-5xl">{t('services_title')}</h1>
           <p className="text-center max-w-3xl mx-auto mb-16 text-lg">
-            Профессиональный автосервис BMW Москва. Ремонт двигателя, замена цепи ГРМ, ремонт турбин, диагностика, ремонт подвески. Работаем со всеми моделями BMW и MINI. Гарантия 24 месяца.
+            {t('services_subtitle')}
           </p>
 
           <div className="mb-20">
-            <h2 className="text-center mb-8 text-3xl">Ремонт BMW по моделям в Москве</h2>
+            <h2 className="text-center mb-8 text-3xl">{t('services_models_title')}</h2>
 
-            <h3 className="mb-6 text-xl font-semibold">Ремонт BMW</h3>
+            <h3 className="mb-6 text-xl font-semibold">{t('services_bmw')}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
               {bmwModels.map((model) => (
                 <Link
@@ -150,7 +160,7 @@ export default function Services() {
               ))}
             </div>
 
-            <h3 className="mb-6 text-xl font-semibold">Ремонт MINI</h3>
+            <h3 className="mb-6 text-xl font-semibold">{t('services_mini')}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {miniModels.map((model) => (
                 <Link
@@ -180,11 +190,15 @@ export default function Services() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {services.map((service) => (
                     <div key={service.id} className="border border-black p-6 flex flex-col">
-                      <h3 className="mb-2 text-lg font-semibold">{service.name_ru}</h3>
-                      <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
+                      <h3 className="mb-2 text-lg font-semibold">
+                        {language === 'ru' ? service.name_ru : (service.name_en || service.name_ru)}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4 flex-grow">
+                        {language === 'ru' ? service.description_ru : (service.description_en || service.description_ru)}
+                      </p>
                       <div className="flex items-center justify-between pt-4 border-t border-black">
                         <span className="font-semibold text-lg">
-                          {service.price_from === 0 ? 'Бесплатно' : `от ${service.price_from.toLocaleString('ru-RU')} ₽`}
+                          {service.price_from === 0 ? t('services_free') : `${t('services_from')} ${service.price_from.toLocaleString('ru-RU')} ₽`}
                         </span>
                         <Link
                           href="/booking"
@@ -205,13 +219,13 @@ export default function Services() {
               href="/calculator"
               className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors mr-4"
             >
-              Рассчитать стоимость
+              {t('services_calculate')}
             </Link>
             <Link
               href="/reviews"
               className="inline-block border-2 border-[#003366] text-[#003366] px-8 py-4 font-semibold hover:bg-[#003366] hover:text-white transition-colors"
             >
-              Отзывы клиентов
+              {t('services_reviews')}
             </Link>
           </div>
         </div>
@@ -228,15 +242,15 @@ export default function Services() {
               position: index + 1,
               item: {
                 '@type': 'Service',
-                name: service.name_ru,
-                description: service.description_ru,
+                name: language === 'ru' ? service.name_ru : (service.name_en || service.name_ru),
+                description: language === 'ru' ? service.description_ru : (service.description_en || service.description_ru),
                 provider: {
                   '@type': 'AutoRepair',
-                  name: 'Мотор Эксперт',
+                  name: 'Motor Expert',
                 },
                 areaServed: {
                   '@type': 'City',
-                  name: 'Москва',
+                  name: 'Moscow',
                 },
                 offers: {
                   '@type': 'Offer',

@@ -22,6 +22,8 @@ const miniModels = [
 
 interface ServiceItem {
   id: string;
+  name_ru: string;
+  name_en: string;
   name: string;
   price: number;
   category: string;
@@ -32,7 +34,7 @@ interface ServicesByCategory {
 }
 
 export default function Calculator() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [model, setModel] = useState('');
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -40,10 +42,18 @@ export default function Calculator() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = 'Калькулятор стоимости ремонта BMW Москва — Мотор Эксперт';
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', 'Рассчитайте стоимость ремонта BMW онлайн. Калькулятор цен на ТО, замену масла, ремонт двигателя, замену цепи ГРМ, ремонт подвески. Автосервис Мотор Эксперт Москва ☎ +7-495-114-55-52');
+    if (language === 'ru') {
+      document.title = 'Калькулятор стоимости ремонта BMW Москва — Мотор Эксперт';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Рассчитайте стоимость ремонта BMW онлайн. Калькулятор цен на ТО, замену масла, ремонт двигателя, замену цепи ГРМ, ремонт подвески. Автосервис Мотор Эксперт Москва ☎ +7-495-114-55-52');
+      }
+    } else {
+      document.title = 'BMW Repair Cost Calculator Moscow — Motor Expert';
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Calculate BMW repair costs online. Price calculator for maintenance, oil change, engine repair, timing chain replacement, suspension repair. Motor Expert Auto Service Moscow ☎ +7-495-114-55-52');
+      }
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -57,13 +67,13 @@ export default function Calculator() {
     }
 
     loadServices();
-  }, []);
+  }, [language]);
 
   const loadServices = async () => {
     try {
       const { data, error } = await supabase
         .from('services')
-        .select('id, name_ru, price_from, category, is_active')
+        .select('id, name_ru, name_en, price_from, category, is_active')
         .eq('is_active', true)
         .order('sort_order');
 
@@ -72,7 +82,9 @@ export default function Calculator() {
       if (data) {
         const services = data.map(service => ({
           id: service.id,
-          name: service.name_ru,
+          name_ru: service.name_ru,
+          name_en: service.name_en || service.name_ru,
+          name: language === 'ru' ? service.name_ru : (service.name_en || service.name_ru),
           price: service.price_from,
           category: service.category
         }));
@@ -111,7 +123,10 @@ export default function Calculator() {
 
   const calculateTotal = () => {
     return selectedServices.reduce((total, serviceName) => {
-      const service = allServices.find((s) => s.name === serviceName);
+      const service = allServices.find((s) => {
+        const displayName = language === 'ru' ? s.name_ru : s.name_en;
+        return displayName === serviceName;
+      });
       return total + (service?.price || 0);
     }, 0);
   };
@@ -128,7 +143,7 @@ export default function Calculator() {
       <div className="pt-16">
         <section className="bg-white py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">Загрузка...</div>
+            <div className="text-center">{t('loading')}</div>
           </div>
         </section>
       </div>
@@ -173,11 +188,11 @@ export default function Calculator() {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <label className="text-lg font-semibold">
-                    Выберите услуги
+                    {t('calculator_select_services')}
                   </label>
                   {selectedServicesCount > 0 && (
                     <span className="text-sm font-medium bg-[#003366] text-white px-3 py-1 rounded">
-                      Выбрано: {selectedServicesCount}
+                      {t('calculator_selected')}: {selectedServicesCount}
                     </span>
                   )}
                 </div>
@@ -195,20 +210,23 @@ export default function Calculator() {
                       </button>
                       {expandedCategory === category && (
                         <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
-                          {services.map((service) => (
-                            <label key={service.id} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
-                              <input
-                                type="checkbox"
-                                checked={selectedServices.includes(service.name)}
-                                onChange={() => toggleService(service.name)}
-                                className="mr-3 w-4 h-4"
-                              />
-                              <span className="flex-1 text-sm">{service.name}</span>
-                              <span className="text-sm font-medium">
-                                {service.price === 0 ? 'Бесплатно' : `${service.price.toLocaleString('ru-RU')} ₽`}
-                              </span>
-                            </label>
-                          ))}
+                          {services.map((service) => {
+                            const displayName = language === 'ru' ? service.name_ru : service.name_en;
+                            return (
+                              <label key={service.id} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedServices.includes(displayName)}
+                                  onChange={() => toggleService(displayName)}
+                                  className="mr-3 w-4 h-4"
+                                />
+                                <span className="flex-1 text-sm">{displayName}</span>
+                                <span className="text-sm font-medium">
+                                  {service.price === 0 ? t('services_free') : `${service.price.toLocaleString('ru-RU')} ₽`}
+                                </span>
+                              </label>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -219,16 +237,19 @@ export default function Calculator() {
               {selectedServicesCount > 0 && (
                 <div className="mt-8 p-6 border-2 border-black bg-gray-50">
                   <div className="text-sm font-medium mb-2">
-                    Выбрано услуг: <span className="font-bold">{selectedServicesCount}</span>
+                    {t('calculator_selected_services')}: <span className="font-bold">{selectedServicesCount}</span>
                   </div>
                   <ul className="space-y-1 mb-4">
-                    {selectedServices.map((service) => {
-                      const foundService = allServices.find((s) => s.name === service);
+                    {selectedServices.map((serviceName) => {
+                      const foundService = allServices.find((s) => {
+                        const displayName = language === 'ru' ? s.name_ru : s.name_en;
+                        return displayName === serviceName;
+                      });
                       return (
-                        <li key={service} className="text-sm flex justify-between">
-                          <span>{service}</span>
+                        <li key={serviceName} className="text-sm flex justify-between">
+                          <span>{serviceName}</span>
                           <span className="font-medium">
-                            {foundService?.price === 0 ? 'Бесплатно' : `${foundService?.price.toLocaleString('ru-RU') || 0} ₽`}
+                            {foundService?.price === 0 ? t('services_free') : `${foundService?.price.toLocaleString('ru-RU') || 0} ₽`}
                           </span>
                         </li>
                       );
@@ -242,7 +263,7 @@ export default function Calculator() {
                   </div>
                   {model && (
                     <p className="mt-4 text-sm text-center text-gray-600">
-                      Расчёт для: {model}
+                      {t('calculator_calculation_for')}: {model}
                     </p>
                   )}
                 </div>
@@ -251,9 +272,7 @@ export default function Calculator() {
           </div>
 
           <div className="mt-8 text-center text-sm">
-            <p>
-              * Указанная стоимость является приблизительной. Точную цену уточняйте у мастера после диагностики.
-            </p>
+            <p>{t('calculator_note')}</p>
           </div>
         </div>
       </section>
