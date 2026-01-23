@@ -27,14 +27,16 @@ interface ServiceItem {
   category: string;
 }
 
+interface ServicesByCategory {
+  [key: string]: ServiceItem[];
+}
+
 export default function Calculator() {
   const { t } = useI18n();
   const [model, setModel] = useState('');
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>('maintenance');
-  const [maintenanceServices, setMaintenanceServices] = useState<ServiceItem[]>([]);
-  const [engineServices, setEngineServices] = useState<ServiceItem[]>([]);
-  const [suspensionServices, setSuspensionServices] = useState<ServiceItem[]>([]);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [servicesByCategory, setServicesByCategory] = useState<ServicesByCategory>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -75,9 +77,20 @@ export default function Calculator() {
           category: service.category
         }));
 
-        setMaintenanceServices(services.filter(s => s.category === 'maintenance'));
-        setEngineServices(services.filter(s => s.category === 'engine'));
-        setSuspensionServices(services.filter(s => s.category === 'suspension'));
+        const grouped: ServicesByCategory = {};
+        services.forEach(service => {
+          if (!grouped[service.category]) {
+            grouped[service.category] = [];
+          }
+          grouped[service.category].push(service);
+        });
+
+        setServicesByCategory(grouped);
+
+        const firstCategory = Object.keys(grouped)[0];
+        if (firstCategory) {
+          setExpandedCategory(firstCategory);
+        }
       }
     } catch (error) {
       console.error('Error loading services:', error);
@@ -86,11 +99,7 @@ export default function Calculator() {
     }
   };
 
-  const allServices = [
-    ...maintenanceServices,
-    ...engineServices,
-    ...suspensionServices,
-  ];
+  const allServices = Object.values(servicesByCategory).flat();
 
   const toggleService = (serviceName: string) => {
     setSelectedServices((prev) =>
@@ -174,86 +183,36 @@ export default function Calculator() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="border border-black">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedCategory(expandedCategory === 'maintenance' ? null : 'maintenance')}
-                      className="w-full px-4 py-3 text-left font-semibold bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
-                    >
-                      <span>{t('services_maintenance')}</span>
-                      <span>{expandedCategory === 'maintenance' ? '-' : '+'}</span>
-                    </button>
-                    {expandedCategory === 'maintenance' && (
-                      <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
-                        {maintenanceServices.map((service) => (
-                          <label key={service.name} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
-                            <input
-                              type="checkbox"
-                              checked={selectedServices.includes(service.name)}
-                              onChange={() => toggleService(service.name)}
-                              className="mr-3 w-4 h-4"
-                            />
-                            <span className="flex-1 text-sm">{service.name}</span>
-                            <span className="text-sm font-medium">{service.price} ₽</span>
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="border border-black">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedCategory(expandedCategory === 'engine' ? null : 'engine')}
-                      className="w-full px-4 py-3 text-left font-semibold bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
-                    >
-                      <span>{t('services_engine')}</span>
-                      <span>{expandedCategory === 'engine' ? '-' : '+'}</span>
-                    </button>
-                    {expandedCategory === 'engine' && (
-                      <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
-                        {engineServices.map((service) => (
-                          <label key={service.name} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
-                            <input
-                              type="checkbox"
-                              checked={selectedServices.includes(service.name)}
-                              onChange={() => toggleService(service.name)}
-                              className="mr-3 w-4 h-4"
-                            />
-                            <span className="flex-1 text-sm">{service.name}</span>
-                            <span className="text-sm font-medium">{service.price} ₽</span>
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="border border-black">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedCategory(expandedCategory === 'suspension' ? null : 'suspension')}
-                      className="w-full px-4 py-3 text-left font-semibold bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
-                    >
-                      <span>{t('services_suspension')}</span>
-                      <span>{expandedCategory === 'suspension' ? '-' : '+'}</span>
-                    </button>
-                    {expandedCategory === 'suspension' && (
-                      <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
-                        {suspensionServices.map((service) => (
-                          <label key={service.name} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
-                            <input
-                              type="checkbox"
-                              checked={selectedServices.includes(service.name)}
-                              onChange={() => toggleService(service.name)}
-                              className="mr-3 w-4 h-4"
-                            />
-                            <span className="flex-1 text-sm">{service.name}</span>
-                            <span className="text-sm font-medium">{service.price} ₽</span>
-                          </label>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {Object.entries(servicesByCategory).map(([category, services]) => (
+                    <div key={category} className="border border-black">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedCategory(expandedCategory === category ? null : category)}
+                        className="w-full px-4 py-3 text-left font-semibold bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
+                      >
+                        <span>{category}</span>
+                        <span>{expandedCategory === category ? '-' : '+'}</span>
+                      </button>
+                      {expandedCategory === category && (
+                        <div className="p-4 space-y-2 max-h-64 overflow-y-auto">
+                          {services.map((service) => (
+                            <label key={service.id} className="flex items-center cursor-pointer hover:bg-gray-50 p-2">
+                              <input
+                                type="checkbox"
+                                checked={selectedServices.includes(service.name)}
+                                onChange={() => toggleService(service.name)}
+                                className="mr-3 w-4 h-4"
+                              />
+                              <span className="flex-1 text-sm">{service.name}</span>
+                              <span className="text-sm font-medium">
+                                {service.price === 0 ? 'Бесплатно' : `${service.price.toLocaleString('ru-RU')} ₽`}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -263,12 +222,17 @@ export default function Calculator() {
                     Выбрано услуг: <span className="font-bold">{selectedServicesCount}</span>
                   </div>
                   <ul className="space-y-1 mb-4">
-                    {selectedServices.map((service) => (
-                      <li key={service} className="text-sm flex justify-between">
-                        <span>{service}</span>
-                        <span className="font-medium">{allServices.find((s) => s.name === service)?.price.toLocaleString('ru-RU') || 0} ₽</span>
-                      </li>
-                    ))}
+                    {selectedServices.map((service) => {
+                      const foundService = allServices.find((s) => s.name === service);
+                      return (
+                        <li key={service} className="text-sm flex justify-between">
+                          <span>{service}</span>
+                          <span className="font-medium">
+                            {foundService?.price === 0 ? 'Бесплатно' : `${foundService?.price.toLocaleString('ru-RU') || 0} ₽`}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                   <div className="border-t-2 border-black pt-4 mt-4">
                     <div className="flex justify-between items-center">

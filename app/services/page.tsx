@@ -23,19 +23,21 @@ interface Service {
   price_from: number;
 }
 
+interface ServicesByCategory {
+  [key: string]: Service[];
+}
+
 export default function Services() {
   const [bmwModels, setBmwModels] = useState<Model[]>([]);
   const [miniModels, setMiniModels] = useState<Model[]>([]);
-  const [maintenanceServices, setMaintenanceServices] = useState<Service[]>([]);
-  const [engineServices, setEngineServices] = useState<Service[]>([]);
-  const [suspensionServices, setSuspensionServices] = useState<Service[]>([]);
+  const [servicesByCategory, setServicesByCategory] = useState<ServicesByCategory>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.title = 'Услуги ремонта BMW Москва — Автосервис Мотор Эксперт | Цены на ТО и обслуживание';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Услуги автосервиса BMW в Москве: ТО, диагностика, замена масла от 2500₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽, ремонт подвески, шиномонтаж. Гарантия 24 месяца ☎ +7-495-114-55-52');
+      metaDescription.setAttribute('content', 'Услуги автосервиса BMW в Москве: ТО, диагностика, замена масла от 1900₽, замена фильтров от 800₽, ремонт подвески от 1200₽. Гарантия 24 месяца ☎ +7-495-114-55-52');
     }
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -84,9 +86,14 @@ export default function Services() {
       if (servicesResponse.error) {
         console.error('Error loading services:', servicesResponse.error);
       } else if (servicesResponse.data) {
-        setMaintenanceServices(servicesResponse.data.filter((s: Service) => s.category === 'maintenance'));
-        setEngineServices(servicesResponse.data.filter((s: Service) => s.category === 'engine'));
-        setSuspensionServices(servicesResponse.data.filter((s: Service) => s.category === 'suspension'));
+        const grouped: ServicesByCategory = {};
+        servicesResponse.data.forEach((service: Service) => {
+          if (!grouped[service.category]) {
+            grouped[service.category] = [];
+          }
+          grouped[service.category].push(service);
+        });
+        setServicesByCategory(grouped);
       }
     } catch (error) {
       console.error('Error loading data:', error);
@@ -107,7 +114,7 @@ export default function Services() {
     );
   }
 
-  const allServices = [...maintenanceServices, ...engineServices, ...suspensionServices];
+  const allServices = Object.values(servicesByCategory).flat();
 
   return (
     <div className="pt-16">
@@ -167,68 +174,30 @@ export default function Services() {
           </div>
 
           <div className="space-y-16">
-            <div>
-              <h2 className="mb-8 pb-4 border-b-2 border-black text-3xl">Обслуживание BMW Москва</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {maintenanceServices.map((service) => (
-                  <div key={service.id} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg font-semibold">{service.name_ru}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
-                    <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
-                      <Link
-                        href="/booking"
-                        className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
-                      >
-                        {t('services_book')}
-                      </Link>
+            {Object.entries(servicesByCategory).map(([category, services]) => (
+              <div key={category}>
+                <h2 className="mb-8 pb-4 border-b-2 border-black text-3xl">{category}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {services.map((service) => (
+                    <div key={service.id} className="border border-black p-6 flex flex-col">
+                      <h3 className="mb-2 text-lg font-semibold">{service.name_ru}</h3>
+                      <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
+                      <div className="flex items-center justify-between pt-4 border-t border-black">
+                        <span className="font-semibold text-lg">
+                          {service.price_from === 0 ? 'Бесплатно' : `от ${service.price_from.toLocaleString('ru-RU')} ₽`}
+                        </span>
+                        <Link
+                          href="/booking"
+                          className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
+                        >
+                          {t('services_book')}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div>
-              <h2 className="mb-8 pb-4 border-b-2 border-black text-3xl">Ремонт двигателя BMW Москва</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {engineServices.map((service) => (
-                  <div key={service.id} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg font-semibold">{service.name_ru}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
-                    <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
-                      <Link
-                        href="/booking"
-                        className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
-                      >
-                        {t('services_book')}
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h2 className="mb-8 pb-4 border-b-2 border-black text-3xl">Ремонт подвески BMW Москва</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {suspensionServices.map((service) => (
-                  <div key={service.id} className="border border-black p-6 flex flex-col">
-                    <h3 className="mb-2 text-lg font-semibold">{service.name_ru}</h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow">{service.description_ru}</p>
-                    <div className="flex items-center justify-between pt-4 border-t border-black">
-                      <span className="font-semibold text-lg">от {service.price_from.toLocaleString('ru-RU')} ₽</span>
-                      <Link
-                        href="/booking"
-                        className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
-                      >
-                        {t('services_book')}
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="mt-16 text-center">
