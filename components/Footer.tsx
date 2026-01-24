@@ -20,27 +20,27 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-white border-t border-black mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-white border-t border-black mt-8 sm:mt-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">{settings.company_name || 'Мотор Эксперт'}</h3>
-            <p className="text-sm mb-4">
+            <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">{settings.company_name || 'Мотор Эксперт'}</h3>
+            <p className="text-xs sm:text-sm mb-4">
               {t('footer_description')}
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4">{t('contacts_title')}</h3>
-            <div className="space-y-2 text-sm">
+            <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">{t('contacts_title')}</h3>
+            <div className="space-y-2 text-xs sm:text-sm">
               <div className="flex items-center">
-                <Phone className="w-4 h-4 mr-2" />
+                <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
                 <a href={`tel:${settings.phone}`} className="hover:text-[#003366]">
                   {settings.phone_display || settings.phone || '+7-495-114-55-52'}
                 </a>
               </div>
               <div className="flex items-start">
-                <MapPin className="w-4 h-4 mr-2 mt-1" />
+                <MapPin className="w-4 h-4 mr-2 mt-1 flex-shrink-0" />
                 <span>{settings.address_full || t('contacts_address_value')}</span>
               </div>
             </div>
@@ -62,8 +62,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4">{t('footer_navigation')}</h3>
-            <div className="space-y-2 text-sm">
+            <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">{t('footer_navigation')}</h3>
+            <div className="space-y-2 text-xs sm:text-sm">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -77,7 +77,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-black mt-8 pt-8 text-center text-sm space-y-1">
+        <div className="border-t border-black mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm space-y-1">
           <p>&copy; 2020-2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
           <p>{t('footer_developed')}</p>
         </div>

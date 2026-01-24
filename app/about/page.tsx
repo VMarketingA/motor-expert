@@ -47,19 +47,19 @@ export default function About() {
 
   return (
     <div className="pt-16">
-      <section className="bg-white py-20">
+      <section className="bg-white py-8 sm:py-12 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center mb-12 text-4xl lg:text-5xl">
+          <h1 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl lg:text-5xl">
             {settings.company_full_name || t('about_title')}
           </h1>
 
-          <div className="prose prose-lg max-w-none">
-            <p className="text-lg leading-relaxed mb-6">
+          <div className="prose prose-base sm:prose-lg max-w-none">
+            <p className="text-base sm:text-lg leading-relaxed mb-6">
               {settings.company_description || t('about_text')}
             </p>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_our_services')}</h2>
-            <ul className="list-disc list-inside mb-6 space-y-2">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 mt-6 sm:mt-8">{t('about_our_services')}</h2>
+            <ul className="list-disc list-inside mb-6 space-y-2 text-sm sm:text-base">
               <li>{t('about_service_1')}</li>
               <li>{t('about_service_2')}</li>
               <li>{t('about_service_3')}</li>
@@ -69,32 +69,32 @@ export default function About() {
               <li>{t('about_service_7')}</li>
             </ul>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_models_title')}</h2>
-            <p className="text-base leading-relaxed mb-6">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 mt-6 sm:mt-8">{t('about_models_title')}</h2>
+            <p className="text-sm sm:text-base leading-relaxed mb-6">
               {t('about_models_text')}
             </p>
 
-            <h2 className="text-2xl font-semibold mb-4 mt-8">{t('about_contacts_title')}</h2>
-            <p className="text-base leading-relaxed mb-4">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 mt-6 sm:mt-8">{t('about_contacts_title')}</h2>
+            <p className="text-sm sm:text-base leading-relaxed mb-4">
               <strong>{t('contacts_address')}:</strong> {settings.address_full} {settings.address_note && `(${settings.address_note})`}
             </p>
-            <p className="text-base leading-relaxed mb-4">
+            <p className="text-sm sm:text-base leading-relaxed mb-4">
               <strong>{t('contacts_phone')}:</strong> <a href={`tel:${settings.phone}`} className="text-[#003366] hover:underline">{settings.phone_display || settings.phone}</a>
             </p>
-            <p className="text-base leading-relaxed mb-8">
+            <p className="text-sm sm:text-base leading-relaxed mb-8">
               <strong>{t('contacts_schedule')}:</strong> {settings.work_hours}
             </p>
 
-            <div className="text-center mt-12">
+            <div className="text-center mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-0 justify-center">
               <Link
                 href="/services"
-                className="inline-block bg-[#003366] text-white px-8 py-4 text-lg font-semibold hover:bg-[#004488] transition-colors mr-4"
+                className="inline-block bg-[#003366] text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold hover:bg-[#004488] transition-colors sm:mr-4"
               >
                 {t('nav_services')}
               </Link>
               <Link
                 href="/booking"
-                className="inline-block border-2 border-[#003366] text-[#003366] px-8 py-4 text-lg font-semibold hover:bg-[#003366] hover:text-white transition-colors"
+                className="inline-block border-2 border-[#003366] text-[#003366] px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold hover:bg-[#003366] hover:text-white transition-colors"
               >
                 {t('hero_cta')}
               </Link>

@@ -88,7 +88,7 @@ export default function Home() {
 
   return (
     <div className="pt-16">
-      <section className="relative bg-white min-h-[600px] lg:min-h-[700px] flex items-center">
+      <section className="relative bg-white min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex items-center">
         <div className="absolute inset-0 z-0">
           <img
             src="/image.png"
@@ -96,22 +96,22 @@ export default function Home() {
             className="w-full h-full object-cover opacity-20"
           />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 w-full">
           <div className="max-w-3xl">
-            <h1 className="mb-8 text-5xl lg:text-6xl">{t('hero_title')}</h1>
-            <p className="mb-6 text-xl leading-relaxed">
+            <h1 className="mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight">{t('hero_title')}</h1>
+            <p className="mb-6 text-base sm:text-lg md:text-xl leading-relaxed">
               {t('hero_subtitle')}
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/services"
-                className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
+                className="text-center bg-[#003366] text-white px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#004488] transition-colors"
               >
                 {t('nav_services')}
               </Link>
               <Link
                 href="/booking"
-                className="inline-block border-2 border-[#003366] text-[#003366] px-8 py-4 font-semibold hover:bg-[#003366] hover:text-white transition-colors"
+                className="text-center border-2 border-[#003366] text-[#003366] px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#003366] hover:text-white transition-colors"
               >
                 {t('hero_cta')}
               </Link>
@@ -135,51 +135,51 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16 border-t border-black">
+      <section className="bg-gray-50 py-12 sm:py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">{t('popular_services_title')}</h2>
+          <h2 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl">{t('popular_services_title')}</h2>
           {loading ? (
             <div className="text-center py-12">
-              <div className="text-xl">{t('loading')}</div>
+              <div className="text-lg sm:text-xl">{t('loading')}</div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {popularServices.map((service) => (
-                <Link key={service.id} href="/services" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-                  <h3 className="mb-3 text-lg font-semibold">
+                <Link key={service.id} href="/services" className="border border-black p-5 sm:p-6 hover:border-[#003366] transition-colors bg-white">
+                  <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">
                     {language === 'ru' ? service.name_ru : (service.name_en || service.name_ru)}
                   </h3>
-                  <p className="text-sm mb-4">
+                  <p className="text-xs sm:text-sm mb-3 sm:mb-4">
                     {language === 'ru' ? service.description_ru : (service.description_en || service.description_ru)}
                   </p>
-                  <span className="text-[#003366] text-sm font-semibold">{t('services_from')} {service.price_from.toLocaleString('ru-RU')} ₽ →</span>
+                  <span className="text-[#003366] text-xs sm:text-sm font-semibold">{t('services_from')} {service.price_from.toLocaleString('ru-RU')} ₽ →</span>
                 </Link>
               ))}
-              <Link href="/reviews" className="border border-black p-6 hover:border-[#003366] transition-colors bg-white">
-                <h3 className="mb-3 text-lg font-semibold">{t('reviews_title')}</h3>
-                <p className="text-sm mb-4">{t('reviews_description')}</p>
-                <span className="text-[#003366] text-sm font-semibold">{t('read_reviews')} →</span>
+              <Link href="/reviews" className="border border-black p-5 sm:p-6 hover:border-[#003366] transition-colors bg-white">
+                <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">{t('reviews_title')}</h3>
+                <p className="text-xs sm:text-sm mb-3 sm:mb-4">{t('reviews_description')}</p>
+                <span className="text-[#003366] text-xs sm:text-sm font-semibold">{t('read_reviews')} →</span>
               </Link>
             </div>
           )}
         </div>
       </section>
 
-      <section className="bg-white py-16 border-t border-black">
+      <section className="bg-white py-12 sm:py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">{t('problems_title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <h2 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl">{t('problems_title')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
             {problems.map((problem, index) => (
-              <div key={index} className="border border-black p-6">
-                <h3 className="mb-3 text-lg font-semibold">{problem.title}</h3>
-                <p className="text-sm">{problem.desc}</p>
+              <div key={index} className="border border-black p-4 sm:p-6">
+                <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">{problem.title}</h3>
+                <p className="text-xs sm:text-sm">{problem.desc}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <Link
               href="/calculator"
-              className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
+              className="inline-block bg-[#003366] text-white px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#004488] transition-colors"
             >
               {t('services_calculate')}
             </Link>
@@ -187,15 +187,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contacts" className="bg-white py-12 border-t border-black">
+      <section id="contacts" className="bg-white py-8 sm:py-12 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-8">{t('contacts_title')}</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <h2 className="text-center mb-6 sm:mb-8 text-2xl sm:text-3xl">{t('contacts_title')}</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
             <div className="space-y-4">
               <div className="flex items-start">
                 <Phone className="w-5 h-5 mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="mb-1 text-base">{t('contacts_phone')}</h3>
+                  <h3 className="mb-1 text-sm sm:text-base font-semibold">{t('contacts_phone')}</h3>
                   <a href={`tel:${settings.phone || '+74951145552'}`} className="text-[#003366] hover:underline text-sm">
                     {settings.phone_display || settings.phone || '+7-495-114-55-52'}
                   </a>
@@ -204,14 +204,14 @@ export default function Home() {
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="mb-1 text-base">{t('contacts_address')}</h3>
+                  <h3 className="mb-1 text-sm sm:text-base font-semibold">{t('contacts_address')}</h3>
                   <p className="text-sm">{t('contacts_address_value')}</p>
                 </div>
               </div>
               <div className="flex items-start">
                 <Clock className="w-5 h-5 mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="mb-1 text-base">{t('contacts_schedule')}</h3>
+                  <h3 className="mb-1 text-sm sm:text-base font-semibold">{t('contacts_schedule')}</h3>
                   <p className="text-sm">{t('contacts_schedule_value')}</p>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function Home() {
                 width="100%"
                 height="250"
                 frameBorder="0"
-                className="border border-black"
+                className="border border-black rounded-none"
               ></iframe>
               <a
                 href="https://yandex.com/maps/org/bmv_motor_ekspert/33792368754/?indoorLevel=1&ll=37.641109%2C55.703353&z=17.06"

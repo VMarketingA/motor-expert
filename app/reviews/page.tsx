@@ -69,12 +69,13 @@ export default function Reviews() {
     <div className="pt-16">
       <div
         style={{
-          height: 'calc(100vh - 127px)',
+          height: 'calc(100vh - 80px)',
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '20px',
-          borderRadius: '20px'
+          marginTop: '8px',
+          borderRadius: '0px'
         }}
+        className="sm:rounded-[20px] sm:mt-5"
       >
         <iframe
           title="Виджет с отзывами «На всю страницу» от MyReviews"

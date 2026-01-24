@@ -169,16 +169,16 @@ function BookingPage() {
 
   return (
     <div className="pt-16 min-h-screen">
-      <section className="bg-white py-20">
+      <section className="bg-white py-8 sm:py-12 lg:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="mb-4">Запись в автосервис</h1>
-            <p className="text-lg">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="mb-3 sm:mb-4 text-2xl sm:text-3xl lg:text-4xl">Запись в автосервис</h1>
+            <p className="text-base sm:text-lg">
               Заполните форму ниже, и наш специалист свяжется с вами в ближайшее время
             </p>
           </div>
 
-          <div className="border-2 border-black p-8">
+          <div className="border-2 border-black p-4 sm:p-6 lg:p-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
