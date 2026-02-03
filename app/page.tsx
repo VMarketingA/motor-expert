@@ -120,7 +120,29 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-16 border-t border-black">
+      <section className="bg-white py-12 sm:py-16 border-t border-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl">{t('problems_title')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
+            {problems.map((problem, index) => (
+              <div key={index} className="border border-black p-4 sm:p-6">
+                <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">{problem.title}</h3>
+                <p className="text-xs sm:text-sm">{problem.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8 sm:mt-12">
+            <Link
+              href="/calculator"
+              className="inline-block bg-[#003366] text-white px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#004488] transition-colors"
+            >
+              {t('services_calculate')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-center mb-12 text-3xl">{t('advantages_title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -135,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-12 sm:py-16 border-t border-black">
+      <section className="bg-white py-12 sm:py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl">{t('popular_services_title')}</h2>
           {loading ? (
@@ -162,28 +184,6 @@ export default function Home() {
               </Link>
             </div>
           )}
-        </div>
-      </section>
-
-      <section className="bg-white py-12 sm:py-16 border-t border-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-8 sm:mb-12 text-2xl sm:text-3xl">{t('problems_title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto">
-            {problems.map((problem, index) => (
-              <div key={index} className="border border-black p-4 sm:p-6">
-                <h3 className="mb-2 sm:mb-3 text-base sm:text-lg font-semibold">{problem.title}</h3>
-                <p className="text-xs sm:text-sm">{problem.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8 sm:mt-12">
-            <Link
-              href="/calculator"
-              className="inline-block bg-[#003366] text-white px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#004488] transition-colors"
-            >
-              {t('services_calculate')}
-            </Link>
-          </div>
         </div>
       </section>
 
