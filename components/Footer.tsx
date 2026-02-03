@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-black mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm space-y-1">
-          <p>&copy; 2020-2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
+          <p>&copy; 2017-2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
           <p>{t('footer_developed')}</p>
         </div>
       </div>
