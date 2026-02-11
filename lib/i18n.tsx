@@ -130,6 +130,7 @@ const translations = {
     footer_rights: 'Все права защищены',
     footer_description: 'Профессиональный ремонт и обслуживание BMW в Москве',
     footer_navigation: 'Навигация',
+    footer_privacy_policy: 'Политика конфиденциальности',
 
     loading: 'Загрузка...',
     error: 'Ошибка',
@@ -254,6 +255,7 @@ const translations = {
     footer_rights: 'All rights reserved',
     footer_description: 'Professional BMW repair and maintenance in Moscow',
     footer_navigation: 'Navigation',
+    footer_privacy_policy: 'Privacy Policy',
 
     loading: 'Loading...',
     error: 'Error',
