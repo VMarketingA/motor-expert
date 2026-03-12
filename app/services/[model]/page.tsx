@@ -70,7 +70,7 @@ export default function ModelPage() {
         document.head.appendChild(newCanonical);
       }
     }
-  }, [modelInfo, modelId]);
+  }, [modelInfo, modelId, language]);
 
   async function loadData() {
     if (!isSupabaseConfigured) {
