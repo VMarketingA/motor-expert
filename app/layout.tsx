@@ -80,16 +80,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <link rel="canonical" href="https://motorexpert.ru" />
-        <meta property="og:locale" content="ru_RU" />
-        <meta name="geo.region" content="RU-MOW" />
-        <meta name="geo.placename" content="Москва" />
-        <meta name="geo.position" content="55.703353;37.641109" />
-        <meta name="ICBM" content="55.703353, 37.641109" />
-      </head>
       <body className={inter.className}>
         <I18nProvider>
           <Navigation />

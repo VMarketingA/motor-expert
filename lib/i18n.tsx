@@ -285,8 +285,10 @@ const translations = {
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('ru');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const saved = localStorage.getItem('language') as Language;
     if (saved && (saved === 'ru' || saved === 'en')) {
       setLanguageState(saved);
@@ -295,7 +297,9 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('language', lang);
+    if (mounted) {
+      localStorage.setItem('language', lang);
+    }
   };
 
   const t = (key: string): string => {
