@@ -137,6 +137,15 @@ const translations = {
     try_again: 'Попробовать снова',
     open_on_maps: 'Открыть на Яндекс Картах',
     coming_soon: 'Скоро здесь появятся благодарности',
+
+    // Service categories
+    category_fluid_replacement: 'Замена основных жидкостей',
+    category_filter_replacement: 'Замена фильтров',
+    category_ignition_drive_fuel: 'Зажигание, привода и топливо',
+    category_brake_system: 'Тормозная система',
+    category_suspension: 'Подвеска',
+    category_steering_system: 'Рулевой механизм',
+    category_air_conditioning: 'Кондиционер',
   },
   en: {
     nav_home: 'Home',
@@ -262,6 +271,15 @@ const translations = {
     try_again: 'Try Again',
     open_on_maps: 'Open on Yandex Maps',
     coming_soon: 'Testimonials coming soon',
+
+    // Service categories
+    category_fluid_replacement: 'Fluid Replacement',
+    category_filter_replacement: 'Filter Replacement',
+    category_ignition_drive_fuel: 'Ignition, Drive and Fuel',
+    category_brake_system: 'Brake System',
+    category_suspension: 'Suspension',
+    category_steering_system: 'Steering System',
+    category_air_conditioning: 'Air Conditioning',
   },
 };
 

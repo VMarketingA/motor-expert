@@ -6,7 +6,7 @@ import { useSiteSettings } from '@/hooks/use-site-settings';
 import { Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const { settings } = useSiteSettings();
 
   const navLinks = [
@@ -77,7 +77,7 @@ export default function Footer() {
         <div className="border-t border-black mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm space-y-2">
           <div className="flex justify-center items-center gap-4">
             <Link
-              href="/privacy-policy"
+              href={language === 'ru' ? '/privacy-policy' : '/privacy-policy-en'}
               className="hover:text-[#003366] transition-colors"
             >
               {t('footer_privacy_policy')}

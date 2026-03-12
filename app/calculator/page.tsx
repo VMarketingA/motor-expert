@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/i18n';
 import { supabase } from '@/lib/supabase';
+import { getCategoryTranslationKey } from '@/lib/category-translator';
 
 const bmwModels = [
   'E81', 'E82', 'E87', 'E88', 'F20', 'F21', 'F22', 'F23', 'F45',
@@ -205,7 +206,7 @@ export default function Calculator() {
                         onClick={() => setExpandedCategory(expandedCategory === category ? null : category)}
                         className="w-full px-4 py-3 text-left font-semibold bg-gray-50 hover:bg-gray-100 flex justify-between items-center"
                       >
-                        <span>{category}</span>
+                        <span>{t(getCategoryTranslationKey(category))}</span>
                         <span>{expandedCategory === category ? '-' : '+'}</span>
                       </button>
                       {expandedCategory === category && (

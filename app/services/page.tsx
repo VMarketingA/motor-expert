@@ -5,6 +5,7 @@ import { useI18n } from '@/lib/i18n';
 import { useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { createSafeJsonLd } from '@/lib/security';
+import { getCategoryTranslationKey } from '@/lib/category-translator';
 
 interface Model {
   id: string;
@@ -186,7 +187,9 @@ export default function Services() {
           <div className="space-y-10 sm:space-y-16">
             {Object.entries(servicesByCategory).map(([category, services]) => (
               <div key={category}>
-                <h2 className="mb-6 sm:mb-8 pb-3 sm:pb-4 border-b-2 border-black text-xl sm:text-2xl lg:text-3xl">{category}</h2>
+                <h2 className="mb-6 sm:mb-8 pb-3 sm:pb-4 border-b-2 border-black text-xl sm:text-2xl lg:text-3xl">
+                  {t(getCategoryTranslationKey(category))}
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {services.map((service) => (
                     <div key={service.id} className="border border-black p-4 sm:p-6 flex flex-col">
