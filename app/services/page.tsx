@@ -191,27 +191,42 @@ export default function Services() {
                   {t(getCategoryTranslationKey(category))}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                  {services.map((service) => (
-                    <div key={service.id} className="border border-black p-4 sm:p-6 flex flex-col">
-                      <h3 className="mb-2 text-base sm:text-lg font-semibold">
-                        {language === 'ru' ? service.name_ru : (service.name_en || service.name_ru)}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 mb-4 flex-grow">
-                        {language === 'ru' ? service.description_ru : (service.description_en || service.description_ru)}
-                      </p>
-                      <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-black flex-wrap gap-2">
-                        <span className="font-semibold text-base sm:text-lg">
-                          {service.price_from === 0 ? t('services_free') : `${t('services_from')} ${service.price_from.toLocaleString('ru-RU')} ₽`}
-                        </span>
-                        <Link
-                          href="/booking"
-                          className="bg-[#003366] text-white px-3 sm:px-4 py-2 text-xs sm:text-sm hover:bg-[#004488] transition-colors"
-                        >
-                          {t('services_book')}
+                  {services.map((service) => {
+                    const serviceName = language === 'ru' ? service.name_ru : (service.name_en || service.name_ru);
+                    const serviceSlug = serviceName.toLowerCase().replace(/\s+/g, '-').replace(/[^а-яёa-z0-9-]/gi, '');
+
+                    return (
+                      <div key={service.id} className="border border-black p-4 sm:p-6 flex flex-col hover:border-[#003366] transition-colors">
+                        <Link href={`/service/${serviceSlug}`}>
+                          <h3 className="mb-2 text-base sm:text-lg font-semibold hover:text-[#003366] cursor-pointer">
+                            {serviceName}
+                          </h3>
                         </Link>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-4 flex-grow">
+                          {language === 'ru' ? service.description_ru : (service.description_en || service.description_ru)}
+                        </p>
+                        <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-black flex-wrap gap-2">
+                          <span className="font-semibold text-base sm:text-lg">
+                            {service.price_from === 0 ? t('services_free') : `${t('services_from')} ${service.price_from.toLocaleString('ru-RU')} ₽`}
+                          </span>
+                          <div className="flex gap-2">
+                            <Link
+                              href={`/service/${serviceSlug}`}
+                              className="bg-white border border-[#003366] text-[#003366] px-3 sm:px-4 py-2 text-xs sm:text-sm hover:bg-[#003366] hover:text-white transition-colors"
+                            >
+                              Подробнее
+                            </Link>
+                            <Link
+                              href="/booking"
+                              className="bg-[#003366] text-white px-3 sm:px-4 py-2 text-xs sm:text-sm hover:bg-[#004488] transition-colors"
+                            >
+                              {t('services_book')}
+                            </Link>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
