@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     if (settings.company_name) {
       if (language === 'ru') {
-        document.title = `Ремонт BMW Москва — Автосервис ${settings.company_name} | Диагностика, ТО, ремонт двигателя`;
+        document.title = `Лучший автосервис БМВ в Москве рядом со мной`;
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
           metaDescription.setAttribute('content', `Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ ${settings.phone_display || settings.phone}`);
