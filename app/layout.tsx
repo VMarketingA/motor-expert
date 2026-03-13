@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://motorexpert.ru'),
-  title: 'Лучший ремонт БМВ в Москве рядом со мной',
+  title: 'Лучший автосервис БМВ в Москве рядом со мной',
   description: 'Профессиональный ремонт BMW в Москве ⚡ Замена масла от 1000₽ ⚡ Ремонт двигателя от 80000₽ ⚡ Замена цепи ГРМ от 35000₽ ⚡ Гарантия 24 месяца ☎ +7-495-114-55-52',
   keywords: [
     'ремонт бмв москва',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: 'https://motorexpert.ru',
     siteName: 'Мотор Эксперт — Автосервис BMW Москва',
-    title: 'Лучший ремонт БМВ в Москве рядом со мной',
+    title: 'Лучший автосервис БМВ в Москве рядом со мной',
     description: 'Профессиональный ремонт BMW в Москве. Замена масла от 1000₽, ремонт двигателя от 80000₽, замена цепи ГРМ от 35000₽. Гарантия 24 месяца',
     images: [
       {
