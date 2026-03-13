@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useI18n } from '@/lib/i18n';
-import { Phone, CheckCircle, Clock, Shield, Star, ArrowRight } from 'lucide-react';
+import { Phone, CircleCheck as CheckCircle, Clock, Shield, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Service {
