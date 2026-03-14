@@ -83,7 +83,7 @@ export default function Footer() {
               {t('footer_privacy_policy')}
             </Link>
           </div>
-          <p>&copy; 2017-2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
+          <p>&copy; 2026 {settings.company_name || 'Мотор Эксперт'}. {t('footer_rights')}</p>
           <p>{t('footer_developed')}</p>
         </div>
       </div>
