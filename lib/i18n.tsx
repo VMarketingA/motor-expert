@@ -21,6 +21,7 @@ const translations = {
     nav_gallery: 'Галерея',
     nav_reviews: 'Отзывы',
     nav_testimonials: 'Благодарности',
+    nav_contacts: 'Контакты',
     nav_booking: 'Запись',
 
     hero_title: 'Ремонт BMW в Москве — Автосервис Мотор Эксперт',
@@ -155,6 +156,7 @@ const translations = {
     nav_gallery: 'Gallery',
     nav_reviews: 'Reviews',
     nav_testimonials: 'Testimonials',
+    nav_contacts: 'Contacts',
     nav_booking: 'Booking',
 
     hero_title: 'BMW Repair in Moscow — Motor Expert Auto Service',

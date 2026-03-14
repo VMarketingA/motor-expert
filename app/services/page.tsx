@@ -217,7 +217,7 @@ export default function Services() {
                               Подробнее
                             </Link>
                             <Link
-                              href="/booking"
+                              href="/contacts"
                               className="bg-[#003366] text-white px-3 sm:px-4 py-2 text-xs sm:text-sm hover:bg-[#004488] transition-colors"
                             >
                               {t('services_book')}

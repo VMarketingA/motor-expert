@@ -31,6 +31,7 @@ export default function Navigation() {
     { href: '/gallery', label: t('nav_gallery') },
     { href: '/reviews', label: t('nav_reviews') },
     { href: '/testimonials', label: t('nav_testimonials') },
+    { href: '/contacts', label: t('nav_contacts') },
   ];
 
   const handleLinkClick = () => {

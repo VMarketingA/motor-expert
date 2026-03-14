@@ -163,7 +163,7 @@ export default function ModelPage() {
                 {modelInfo.description}
               </p>
               <Link
-                href={`/booking?model=${modelId}`}
+                href="/contacts"
                 className="inline-block bg-[#003366] text-white px-8 py-4 font-semibold hover:bg-[#004488] transition-colors"
               >
                 {language === 'ru' ? 'Записаться в автосервис' : 'Book Service'}
@@ -198,7 +198,7 @@ export default function ModelPage() {
                           {service.price_from === 0 ? t('services_free') : `${t('services_from')} ${service.price_from.toLocaleString('ru-RU')} ₽`}
                         </span>
                         <Link
-                          href={`/booking?model=${modelId}`}
+                          href="/contacts"
                           className="bg-[#003366] text-white px-4 py-2 text-sm hover:bg-[#004488] transition-colors"
                         >
                           {t('services_book')}

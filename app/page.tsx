@@ -110,7 +110,7 @@ export default function Home() {
                 {t('nav_services')}
               </Link>
               <Link
-                href="/booking"
+                href="/contacts"
                 className="text-center border-2 border-[#003366] text-[#003366] px-6 sm:px-8 py-3 sm:py-4 font-semibold hover:bg-[#003366] hover:text-white transition-colors"
               >
                 {t('hero_cta')}

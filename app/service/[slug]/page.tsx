@@ -384,7 +384,7 @@ export default function ServicePage() {
               Профессиональный автосервис BMW. Опыт работы более 10 лет. Гарантия 24 месяца.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/booking">
+              <Link href="/contacts">
                 <Button size="lg" className="bg-[#003366] hover:bg-[#004488] text-white px-8 py-6 text-lg">
                   <Phone className="mr-2 h-5 w-5" />
                   Записаться на ремонт
@@ -469,7 +469,7 @@ export default function ServicePage() {
               <div className="bg-[#003366] text-white p-6 rounded-lg">
                 <h3 className="text-xl font-bold mb-4">Запишитесь на ремонт</h3>
                 <p className="mb-6">Оставьте заявку и мы перезвоним вам в течение 5 минут</p>
-                <Link href="/booking">
+                <Link href="/contacts">
                   <Button className="w-full bg-white text-[#003366] hover:bg-slate-100">
                     Записаться сейчас
                   </Button>
@@ -509,7 +509,7 @@ export default function ServicePage() {
               <div className="bg-green-50 p-6 rounded-lg border-2 border-green-200">
                 <h4 className="font-bold text-lg mb-2">Специальное предложение</h4>
                 <p className="text-sm mb-4">При комплексном обслуживании — диагностика бесплатно!</p>
-                <Link href="/booking">
+                <Link href="/contacts">
                   <Button className="w-full bg-green-600 hover:bg-green-700">
                     Получить предложение
                   </Button>
@@ -527,7 +527,7 @@ export default function ServicePage() {
             Наши специалисты проведут качественную диагностику и выполнят все необходимые работы с гарантией
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/booking">
+            <Link href="/contacts">
               <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 px-8">
                 <Phone className="mr-2 h-5 w-5" />
                 Записаться на ремонт

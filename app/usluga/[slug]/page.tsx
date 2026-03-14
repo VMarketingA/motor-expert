@@ -123,7 +123,7 @@ export default function ServicePage() {
             </div>
 
             <Button
-              onClick={() => router.push('/booking')}
+              onClick={() => router.push('/contacts')}
               size="lg"
               className="bg-white text-[#003366] hover:bg-white/90 font-semibold"
             >
@@ -216,11 +216,11 @@ export default function ServicePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => router.push('/booking')}
+              onClick={() => router.push('/contacts')}
               size="lg"
               className="bg-[#003366] hover:bg-[#004488] text-white font-semibold"
             >
-              {language === 'ru' ? 'Записаться онлайн' : 'Book Online'}
+              {language === 'ru' ? 'Записаться на ремонт' : 'Book Repair'}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
 
