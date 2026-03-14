@@ -24,6 +24,7 @@ interface Service {
   description_ru: string;
   description_en: string;
   price_from: number;
+  slug: string;
 }
 
 interface ServicesByCategory {
@@ -193,11 +194,10 @@ export default function Services() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {services.map((service) => {
                     const serviceName = language === 'ru' ? service.name_ru : (service.name_en || service.name_ru);
-                    const serviceSlug = serviceName.toLowerCase().replace(/\s+/g, '-').replace(/[^а-яёa-z0-9-]/gi, '');
 
                     return (
                       <div key={service.id} className="border border-black p-4 sm:p-6 flex flex-col hover:border-[#003366] transition-colors">
-                        <Link href={`/service/${serviceSlug}`}>
+                        <Link href={`/usluga/${service.slug}`}>
                           <h3 className="mb-2 text-base sm:text-lg font-semibold hover:text-[#003366] cursor-pointer">
                             {serviceName}
                           </h3>
@@ -211,7 +211,7 @@ export default function Services() {
                           </span>
                           <div className="flex gap-2">
                             <Link
-                              href={`/service/${serviceSlug}`}
+                              href={`/usluga/${service.slug}`}
                               className="bg-white border border-[#003366] text-[#003366] px-3 sm:px-4 py-2 text-xs sm:text-sm hover:bg-[#003366] hover:text-white transition-colors"
                             >
                               Подробнее
