@@ -20,8 +20,8 @@ export default function ContactsPage() {
     {
       icon: Mail,
       title: language === 'ru' ? 'Email' : 'Email',
-      value: settings?.email || 'info@motorexpert.ru',
-      link: `mailto:${settings?.email || 'info@motorexpert.ru'}`
+      value: settings?.email || 'info@motorbmw.ru',
+      link: `mailto:${settings?.email || 'info@motorbmw.ru'}`
     },
     {
       icon: MapPin,
@@ -112,7 +112,7 @@ export default function ContactsPage() {
                     variant="outline"
                     className="border-2 border-white text-white hover:bg-white/10 font-semibold text-lg px-8"
                   >
-                    <a href={`mailto:${settings?.email || 'info@motorexpert.ru'}`}>
+                    <a href={`mailto:${settings?.email || 'info@motorbmw.ru'}`}>
                       <Mail className="mr-2 h-5 w-5" />
                       {language === 'ru' ? 'Написать' : 'Email Us'}
                     </a>
