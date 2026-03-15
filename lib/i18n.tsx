@@ -140,13 +140,13 @@ const translations = {
     coming_soon: 'Скоро здесь появятся благодарности',
 
     // Service categories
-    category_fluid_replacement: 'Замена основных жидкостей',
-    category_filter_replacement: 'Замена фильтров',
-    category_ignition_drive_fuel: 'Зажигание, привода и топливо',
-    category_brake_system: 'Тормозная система',
+    category_fluids: 'Замена основных жидкостей',
+    category_filters: 'Замена фильтров',
+    category_ignition_fuel: 'Зажигание, привода и топливо',
+    category_brakes: 'Тормозная система',
     category_suspension: 'Подвеска',
-    category_steering_system: 'Рулевой механизм',
-    category_air_conditioning: 'Кондиционер',
+    category_steering: 'Рулевой механизм',
+    category_ac: 'Кондиционер',
   },
   en: {
     nav_home: 'Home',
@@ -275,13 +275,13 @@ const translations = {
     coming_soon: 'Testimonials coming soon',
 
     // Service categories
-    category_fluid_replacement: 'Fluid Replacement',
-    category_filter_replacement: 'Filter Replacement',
-    category_ignition_drive_fuel: 'Ignition, Drive and Fuel',
-    category_brake_system: 'Brake System',
+    category_fluids: 'Fluid Replacement',
+    category_filters: 'Filter Replacement',
+    category_ignition_fuel: 'Ignition, Drive and Fuel',
+    category_brakes: 'Brake System',
     category_suspension: 'Suspension',
-    category_steering_system: 'Steering System',
-    category_air_conditioning: 'Air Conditioning',
+    category_steering: 'Steering System',
+    category_ac: 'Air Conditioning',
   },
 };
 

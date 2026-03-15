@@ -1,12 +1,12 @@
 export function getCategoryTranslationKey(category: string): string {
   const categoryMap: { [key: string]: string } = {
-    'Fluid Replacement': 'category_fluid_replacement',
-    'Filter Replacement': 'category_filter_replacement',
-    'Ignition, Drive and Fuel': 'category_ignition_drive_fuel',
-    'Brake System': 'category_brake_system',
-    'Suspension': 'category_suspension',
-    'Steering System': 'category_steering_system',
-    'Air Conditioning': 'category_air_conditioning',
+    'fluids': 'category_fluids',
+    'filters': 'category_filters',
+    'ignition_fuel': 'category_ignition_fuel',
+    'brakes': 'category_brakes',
+    'suspension': 'category_suspension',
+    'steering': 'category_steering',
+    'ac': 'category_ac',
   };
 
   return categoryMap[category] || category;
