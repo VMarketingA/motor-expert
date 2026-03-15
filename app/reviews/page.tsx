@@ -30,83 +30,71 @@ export default function Reviews() {
       newCanonical.setAttribute('href', 'https://motorexpert.ru/reviews');
       document.head.appendChild(newCanonical);
     }
-
-    const script = document.createElement('script');
-    script.src = 'https://myreviews.dev/widget/dist/index.js';
-    script.defer = true;
-    document.body.appendChild(script);
-
-    script.onload = () => {
-      const myReviewsInit = function () {
-        if (window.myReviews) {
-          new window.myReviews.BlockWallWidget({
-            uuid: "0001b151-dbd2-4b3a-a6a3-803a61be8888",
-            name: "g84447569",
-            additionalFrame: "none",
-            lang: "ru",
-            widgetId: "1"
-          }).init();
-        }
-      };
-
-      if (document.readyState === "loading") {
-        document.addEventListener('DOMContentLoaded', function () {
-          myReviewsInit();
-        });
-      } else {
-        myReviewsInit();
-      }
-    };
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
   }, [language]);
 
   return (
     <div className="pt-16">
-      <div
-        style={{
-          height: 'calc(100vh - 80px)',
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '8px',
-          borderRadius: '0px'
-        }}
-        className="sm:rounded-[20px] sm:mt-5"
-      >
-        <iframe
-          title="Виджет с отзывами «На всю страницу» от MyReviews"
-          style={{
-            maxWidth: '1180px',
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            outline: 'none',
-            padding: 0,
-            margin: 0
-          }}
-          id="myReviews__block-widget"
-        />
-      </div>
+      <section className="bg-white py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-center mb-6 sm:mb-8 text-2xl sm:text-3xl lg:text-5xl">
+            {language === 'ru' ? 'Отзывы наших клиентов' : 'Customer Reviews'}
+          </h1>
+          <p className="text-center max-w-3xl mx-auto mb-10 text-base sm:text-lg text-gray-600">
+            {language === 'ru'
+              ? 'Реальные отзывы клиентов о ремонте и обслуживании BMW в нашем автосервисе'
+              : 'Real customer reviews about BMW repair and maintenance at our service center'}
+          </p>
+
+          <div className="flex justify-center">
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '560px',
+                height: '800px',
+                overflow: 'hidden',
+                position: 'relative'
+              }}
+            >
+              <iframe
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: '1px solid #e6e6e6',
+                  borderRadius: '8px',
+                  boxSizing: 'border-box'
+                }}
+                src="https://yandex.ru/maps-reviews-widget/33792368754?comments"
+                title="Отзывы на Яндекс.Картах"
+              />
+              <a
+                href="https://yandex.com/maps/org/bmv_motor_ekspert/33792368754/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  boxSizing: 'border-box',
+                  textDecoration: 'none',
+                  color: '#b3b3b3',
+                  fontSize: '10px',
+                  fontFamily: 'YS Text, sans-serif',
+                  padding: '0 20px',
+                  position: 'absolute',
+                  bottom: '8px',
+                  width: '100%',
+                  textAlign: 'center',
+                  left: 0,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: 'block',
+                  maxHeight: '14px',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                БМВ Мотор Эксперт на карте Москвы — Яндекс Карты
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
-}
-
-declare global {
-  interface Window {
-    myReviews: {
-      BlockWallWidget: new (config: {
-        uuid: string;
-        name: string;
-        additionalFrame: string;
-        lang: string;
-        widgetId: string;
-      }) => {
-        init: () => void;
-      };
-    };
-  }
 }
