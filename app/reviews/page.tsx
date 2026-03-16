@@ -34,16 +34,22 @@ export default function Reviews() {
 
   return (
     <div className="pt-16">
-      <section className="bg-white py-8 sm:py-12">
+      <section className="bg-white py-8 sm:py-12 border-b-4 border-[#003366]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center mb-6 sm:mb-8 text-2xl sm:text-3xl lg:text-5xl">
-            {language === 'ru' ? 'Отзывы наших клиентов' : 'Customer Reviews'}
-          </h1>
-          <p className="text-center max-w-3xl mx-auto mb-10 text-base sm:text-lg text-gray-600">
-            {language === 'ru'
-              ? 'Реальные отзывы клиентов о ремонте и обслуживании BMW в нашем автосервисе'
-              : 'Real customer reviews about BMW repair and maintenance at our service center'}
-          </p>
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="mb-4 sm:mb-6 text-2xl sm:text-3xl lg:text-5xl">
+              {language === 'ru' ? 'Отзывы наших клиентов' : 'Customer Reviews'}
+            </h1>
+            <div className="inline-block bg-[#003366] text-white px-6 py-2 mb-4">
+              <span className="text-3xl font-bold">5.0</span>
+              <span className="ml-2 text-lg">★★★★★</span>
+            </div>
+            <p className="text-center max-w-3xl mx-auto text-base sm:text-lg">
+              {language === 'ru'
+                ? 'Реальные отзывы клиентов о ремонте и обслуживании BMW в нашем автосервисе'
+                : 'Real customer reviews about BMW repair and maintenance at our service center'}
+            </p>
+          </div>
 
           <div className="flex justify-center">
             <div
@@ -52,15 +58,15 @@ export default function Reviews() {
                 maxWidth: '560px',
                 height: '800px',
                 overflow: 'hidden',
-                position: 'relative'
+                position: 'relative',
+                border: '2px solid #000'
               }}
             >
               <iframe
                 style={{
                   width: '100%',
                   height: '100%',
-                  border: '1px solid #e6e6e6',
-                  borderRadius: '8px',
+                  border: 'none',
                   boxSizing: 'border-box'
                 }}
                 src="https://yandex.ru/maps-reviews-widget/33792368754?comments"

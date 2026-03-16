@@ -122,7 +122,7 @@ export default function Services() {
           <div className="space-y-10 sm:space-y-16">
             {Object.entries(servicesByCategory).map(([category, services]) => (
               <div key={category}>
-                <h2 className="mb-6 sm:mb-8 pb-3 sm:pb-4 border-b-2 border-black text-xl sm:text-2xl lg:text-3xl">
+                <h2 className="mb-6 sm:mb-8 pb-3 sm:pb-4 border-b-4 border-[#003366] text-xl sm:text-2xl lg:text-3xl">
                   {t(getCategoryTranslationKey(category))}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

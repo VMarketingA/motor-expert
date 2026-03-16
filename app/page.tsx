@@ -142,15 +142,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16 border-t border-black">
+      <section className="bg-[#003366] py-16 border-t border-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center mb-12 text-3xl">{t('advantages_title')}</h2>
+          <h2 className="text-center mb-12 text-3xl text-white">{t('advantages_title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {advantages.map((advantage, index) => (
               <div key={index} className="text-center">
-                <advantage.icon className="w-12 h-12 mx-auto mb-4" />
-                <h3 className="mb-3">{advantage.title}</h3>
-                <p className="text-sm">{advantage.desc}</p>
+                <advantage.icon className="w-12 h-12 mx-auto mb-4 text-white" />
+                <h3 className="mb-3 text-white">{advantage.title}</h3>
+                <p className="text-sm text-gray-200">{advantage.desc}</p>
               </div>
             ))}
           </div>

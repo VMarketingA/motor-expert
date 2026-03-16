@@ -7,11 +7,11 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    --primary: 210 100% 20%;
+    --foreground: 0 0% 0%;
+    --primary: 210 100% 35%;
     --primary-foreground: 0 0% 100%;
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
+    --border: 0 0% 0%;
+    --input: 0 0% 90%;
     --radius: 0;
   }
 }
