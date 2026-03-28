@@ -21,6 +21,7 @@ const translations = {
     nav_gallery: 'Галерея',
     nav_reviews: 'Отзывы',
     nav_testimonials: 'Благодарности',
+    nav_blog: 'Блог',
     nav_contacts: 'Контакты',
     nav_booking: 'Запись',
 
@@ -156,6 +157,7 @@ const translations = {
     nav_gallery: 'Gallery',
     nav_reviews: 'Reviews',
     nav_testimonials: 'Testimonials',
+    nav_blog: 'Blog',
     nav_contacts: 'Contacts',
     nav_booking: 'Booking',
 

@@ -1,9 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { AlertCircle } from 'lucide-react';
+import { CircleAlert as AlertCircle } from 'lucide-react';
 
-export default function DatabaseError() {
+export default function DatabaseError({ message }: { message?: string }) {
   return (
     <div className="min-h-[400px] flex items-center justify-center p-8">
       <div className="max-w-md text-center">
