@@ -119,13 +119,13 @@ export default function Testimonials() {
           </div>
 
           <div className="bg-[#003366] text-white rounded-lg p-8 md:p-12 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              {language === 'ru' ? 'Доверьте свой BMW профессионалам' : 'Trust Your BMW to Professionals'}
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              {language === 'ru' ? 'Не можете пользоваться своим BMW?' : 'Can\'t Use Your BMW?'}
             </h2>
-            <p className="text-lg mb-6">
+            <p className="text-lg mb-6 text-white">
               {language === 'ru'
-                ? 'Официальные сертификаты и многолетний опыт работы с автомобилями BMW и MINI'
-                : 'Official certificates and years of experience with BMW and MINI vehicles'}
+                ? 'Позвоните нам и запишитесь на ремонт вашего BMW'
+                : 'Call us and schedule a repair for your BMW'}
             </p>
             <a
               href="tel:+74951145552"
