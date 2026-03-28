@@ -18,7 +18,7 @@ const certificates: Certificate[] = [
     id: 1,
     title: 'Сертификат LIQUI MOLY',
     titleEn: 'LIQUI MOLY Certificate',
-    image: 'https://images.pexels.com/photos/190574/pexels-photo-190574.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/certificates/liqui-moly.jpg',
     description: 'Технический партнер LIQUI MOLY. Мы используем для обслуживания автомобилей оригинальную продукцию бренда.',
     descriptionEn: 'LIQUI MOLY technical partner. We use original brand products for vehicle maintenance.'
   },
@@ -26,7 +26,7 @@ const certificates: Certificate[] = [
     id: 2,
     title: 'Партнер BMW Group',
     titleEn: 'BMW Group Partner',
-    image: 'https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/certificates/bmw-partner.jpg',
     description: 'Партнер Официального дилера BMW АО "Авилон АГ" в рамках программы "Партнеры по качеству BMW".',
     descriptionEn: 'Partner of BMW Official Dealer Avilon AG as part of the BMW Quality Partners program.'
   },
@@ -34,7 +34,7 @@ const certificates: Certificate[] = [
     id: 3,
     title: 'Сертификат соответствия ГОСТ Р',
     titleEn: 'GOST R Certificate',
-    image: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/certificates/gost-1.jpg',
     description: 'Сертификат соответствия на техническое обслуживание и ремонт транспортных средств, машин и оборудования.',
     descriptionEn: 'Conformity certificate for technical maintenance and repair of vehicles, machinery and equipment.'
   },
@@ -42,7 +42,7 @@ const certificates: Certificate[] = [
     id: 4,
     title: 'Приложение к сертификату ГОСТ Р',
     titleEn: 'GOST R Certificate Appendix',
-    image: 'https://images.pexels.com/photos/159358/hand-writing-write-pen-159358.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/certificates/gost-2.jpg',
     description: 'Перечень услуг (работ), на которые распространяется действие сертификата соответствия.',
     descriptionEn: 'List of services covered by the conformity certificate.'
   }
