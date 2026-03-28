@@ -18,15 +18,15 @@ const certificates: Certificate[] = [
     id: 1,
     title: 'Сертификат LIQUI MOLY',
     titleEn: 'LIQUI MOLY Certificate',
-    image: '/certificates/liqui-moly.jpg',
+    image: 'https://motorbmw.ru/upload/iblock/027/0271528d65a73dad2683855eb04b4f93.JPG',
     description: 'Технический партнер LIQUI MOLY. Мы используем для обслуживания автомобилей оригинальную продукцию бренда.',
     descriptionEn: 'LIQUI MOLY technical partner. We use original brand products for vehicle maintenance.'
   },
   {
     id: 2,
-    title: 'Партнер BMW Group',
-    titleEn: 'BMW Group Partner',
-    image: '/certificates/bmw-partner.jpg',
+    title: 'Сертификат Авилон АГ',
+    titleEn: 'Avilon AG Certificate',
+    image: 'https://motorbmw.ru/upload/iblock/55c/55c707501be84ff874a3012bf8efcfdc.jpeg',
     description: 'Партнер Официального дилера BMW АО "Авилон АГ" в рамках программы "Партнеры по качеству BMW".',
     descriptionEn: 'Partner of BMW Official Dealer Avilon AG as part of the BMW Quality Partners program.'
   },
@@ -34,7 +34,7 @@ const certificates: Certificate[] = [
     id: 3,
     title: 'Сертификат соответствия ГОСТ Р',
     titleEn: 'GOST R Certificate',
-    image: '/certificates/gost-1.jpg',
+    image: 'https://motorbmw.ru/upload/iblock/8b6/8b6948467349181e4ab3228a8b0b04f9.jpg',
     description: 'Сертификат соответствия на техническое обслуживание и ремонт транспортных средств, машин и оборудования.',
     descriptionEn: 'Conformity certificate for technical maintenance and repair of vehicles, machinery and equipment.'
   },
@@ -42,7 +42,7 @@ const certificates: Certificate[] = [
     id: 4,
     title: 'Приложение к сертификату ГОСТ Р',
     titleEn: 'GOST R Certificate Appendix',
-    image: '/certificates/gost-2.jpg',
+    image: 'https://motorbmw.ru/upload/iblock/eda/eda1c7bf5e100659ffc2814e48bb96d9.jpg',
     description: 'Перечень услуг (работ), на которые распространяется действие сертификата соответствия.',
     descriptionEn: 'List of services covered by the conformity certificate.'
   }
