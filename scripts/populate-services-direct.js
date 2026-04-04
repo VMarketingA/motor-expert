@@ -82,39 +82,50 @@ const services = [
 ];
 
 async function populateServices() {
-  console.log('Starting to populate services...');
+  console.log('🚀 Starting to populate services...\n');
 
-  // Delete all existing services
-  const { error: deleteError } = await supabase
-    .from('services')
-    .delete()
-    .neq('id', '00000000-0000-0000-0000-000000000000');
+  try {
+    console.log('📊 Database URL:', supabaseUrl);
+    console.log('🔑 Using API key:', supabaseKey.substring(0, 20) + '...\n');
 
-  if (deleteError) {
-    console.error('Error deleting existing services:', deleteError);
-  } else {
-    console.log('Deleted all existing services');
-  }
+    // Delete all existing services
+    console.log('🗑️  Deleting existing services...');
+    const { error: deleteError } = await supabase
+      .from('services')
+      .delete()
+      .neq('id', '00000000-0000-0000-0000-000000000000');
 
-  // Insert new services
-  const { data, error } = await supabase
-    .from('services')
-    .insert(services);
+    if (deleteError) {
+      console.error('❌ Error deleting existing services:', deleteError);
+    } else {
+      console.log('✅ Deleted all existing services\n');
+    }
 
-  if (error) {
-    console.error('Error inserting services:', error);
+    // Insert new services
+    console.log('📝 Inserting new services...');
+    const { data, error } = await supabase
+      .from('services')
+      .insert(services);
+
+    if (error) {
+      console.error('❌ Error inserting services:', error);
+      process.exit(1);
+    }
+
+    console.log(`\n✅ Successfully populated ${services.length} services!\n`);
+    console.log('📊 Services by category:');
+    console.log('  • Замена основных жидкостей: 6 услуг');
+    console.log('  • Замена фильтров: 4 услуги');
+    console.log('  • Зажигание, привода и топливо: 7 услуг');
+    console.log('  • Тормозная система: 7 услуг');
+    console.log('  • Рулевой механизм: 7 услуг');
+    console.log('  • Подвеска: 12 услуг');
+    console.log('  • Кондиционер: 6 услуг');
+    console.log('\n✨ Database successfully populated!');
+  } catch (error) {
+    console.error('\n❌ Failed to populate database:', error);
     process.exit(1);
   }
-
-  console.log(`✅ Successfully populated ${services.length} services!`);
-  console.log('\nServices by category:');
-  console.log('- Замена основных жидкостей: 6 услуг');
-  console.log('- Замена фильтров: 4 услуги');
-  console.log('- Зажигание, привода и топливо: 7 услуг');
-  console.log('- Тормозная система: 7 услуг');
-  console.log('- Рулевой механизм: 7 услуг');
-  console.log('- Подвеска: 12 услуг');
-  console.log('- Кондиционер: 6 услуг');
 }
 
 populateServices();
