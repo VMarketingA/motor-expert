@@ -169,10 +169,10 @@ export default function BlogPostPage() {
                 +7 (495) 114-55-52
               </a>
               <Link
-                href="/booking"
+                href="/contacts"
                 className="inline-flex items-center justify-center bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold hover:bg-white hover:text-[#003366] transition-colors"
               >
-                {language === 'ru' ? 'Записаться онлайн' : 'Book Online'}
+                {language === 'ru' ? 'Контакты' : 'Contacts'}
               </Link>
             </div>
           </div>
