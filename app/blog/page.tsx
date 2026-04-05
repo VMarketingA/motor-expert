@@ -93,7 +93,7 @@ export default function BlogPage() {
                 <div className="relative h-64 overflow-hidden">
                   <img
                     src={post.image_url}
-                    alt={language === 'ru' ? post.title_ru : (post.title_en || post.title_ru)}
+                    alt={language === 'ru' ? 'Лучший автосервис БМВ в Москве рядом со мной' : 'Best BMW service center in Moscow near me'}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute top-4 right-4 bg-[#003366] text-white px-3 py-1 rounded-full text-sm font-semibold">

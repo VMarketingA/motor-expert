@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import DatabaseError from '@/components/DatabaseError';
 import { useI18n } from '@/lib/i18n';
+import { formatBlogContent } from '@/lib/format-content';
 import { ArrowLeft, Phone } from 'lucide-react';
 
 interface BlogPost {
@@ -98,7 +99,8 @@ export default function BlogPostPage() {
 
   const title = language === 'ru' ? post.title_ru : (post.title_en || post.title_ru);
   const subtitle = language === 'ru' ? post.subtitle_ru : (post.subtitle_en || post.subtitle_ru);
-  const content = language === 'ru' ? post.content_ru : (post.content_en || post.content_ru);
+  const rawContent = language === 'ru' ? post.content_ru : (post.content_en || post.content_ru);
+  const content = formatBlogContent(rawContent);
   const cta = language === 'ru' ? post.cta_ru : (post.cta_en || post.cta_ru);
 
   return (
