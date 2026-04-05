@@ -141,7 +141,7 @@ export default function BlogPostPage() {
           <div className="relative h-[400px] md:h-[500px] rounded-xl overflow-hidden mb-12 shadow-2xl">
             <img
               src={post.image_url}
-              alt={title}
+              alt={language === 'ru' ? 'Лучший автосервис БМВ в Москве рядом со мной' : 'Best BMW service center in Moscow near me'}
               className="w-full h-full object-cover"
             />
           </div>
