@@ -131,33 +131,26 @@ export default function Services() {
                     const serviceDescription = language === 'ru' ? service.description_ru : (service.description_en || service.description_ru);
 
                     return (
-                      <div key={service.id} className="border border-black p-4 sm:p-6 flex flex-col hover:border-[#003366] transition-colors">
-                        <h3 className="mb-3 text-base sm:text-lg font-semibold leading-tight">
+                      <Link
+                        key={service.id}
+                        href={`/usluga/${service.slug}`}
+                        className="border border-black p-4 sm:p-6 flex flex-col hover:border-[#003366] hover:shadow-lg transition-all group"
+                      >
+                        <h3 className="mb-3 text-base sm:text-lg font-semibold leading-tight group-hover:text-[#003366] transition-colors">
                           {serviceName}
                         </h3>
                         <p className="text-xs sm:text-sm text-gray-700 mb-4 flex-grow leading-relaxed">
                           {serviceDescription}
                         </p>
                         <div className="pt-4 border-t border-black">
-                          <div className="font-bold text-lg sm:text-xl mb-4 text-[#003366]">
-                            {service.price_from === 0 ? t('services_free') : `${service.price_from.toLocaleString('ru-RU')} ₽`}
+                          <div className="font-bold text-lg sm:text-xl text-[#003366]">
+                            {service.price_from === 0 ? t('services_free') : `${language === 'ru' ? 'от' : 'from'} ${service.price_from.toLocaleString('ru-RU')} ₽`}
                           </div>
-                          <div className="flex flex-col gap-2">
-                            <Link
-                              href="/calculator"
-                              className="block text-center bg-[#003366] text-white px-4 py-2.5 text-sm font-medium hover:bg-[#004488] transition-colors"
-                            >
-                              {language === 'ru' ? 'Рассчитать стоимость' : 'Calculate cost'}
-                            </Link>
-                            <Link
-                              href="/contacts"
-                              className="block text-center border-2 border-[#003366] text-[#003366] px-4 py-2.5 text-sm font-medium hover:bg-[#003366] hover:text-white transition-colors"
-                            >
-                              {language === 'ru' ? 'Записаться на ремонт' : 'Book repair'}
-                            </Link>
+                          <div className="mt-3 text-sm font-medium text-[#003366] group-hover:underline">
+                            {language === 'ru' ? 'Подробнее →' : 'Learn more →'}
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     );
                   })}
                 </div>
