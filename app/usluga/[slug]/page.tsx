@@ -16,6 +16,7 @@ interface Service {
   name_en: string;
   description_ru: string;
   description_en: string;
+  description: string;
   price_from: number;
   category: string;
   slug: string;
@@ -99,6 +100,7 @@ export default function ServicePage() {
 
   const serviceName = language === 'ru' ? service.name_ru : service.name_en;
   const serviceDescription = language === 'ru' ? service.description_ru : service.description_en;
+  const fullDescription = language === 'ru' ? service.description : service.description_en;
 
   return (
     <div className="pt-16">
@@ -137,6 +139,13 @@ export default function ServicePage() {
       <section className="py-12 sm:py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+              {language === 'ru' ? 'Описание услуги' : 'Service Description'}
+            </h2>
+            <p className="text-lg leading-relaxed mb-8">
+              {fullDescription}
+            </p>
+
             <p className="text-lg leading-relaxed mb-8">
               {content.introduction}
             </p>
